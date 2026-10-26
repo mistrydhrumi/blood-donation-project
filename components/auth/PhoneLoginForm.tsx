@@ -2,22 +2,16 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, ChevronDown } from "lucide-react";
+import { ArrowRight, ShieldCheck, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export interface PhoneLoginFormProps {
-  onSuccess?: (phone: string) => void;
-}
-
-export function PhoneLoginForm({ onSuccess }: PhoneLoginFormProps) {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const countryCode = "+91";
+export function PhoneLoginForm() {
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSuccess?.(phoneNumber || "98765 43210");
   };
 
   return (
@@ -29,30 +23,29 @@ export function PhoneLoginForm({ onSuccess }: PhoneLoginFormProps) {
 
       {/* Main Title */}
       <h2 className="text-2xl sm:text-3xl xl:text-[34px] text-gray-900 tracking-tight mt-2 mb-1.5 leading-tight">
-        Continue with your phone
+        Continue with your email
       </h2>
 
       {/* Helper text */}
       <p className="text-xs sm:text-sm text-gray-500 mb-6 font-normal">
-        We&apos;ll send a one-time code to verify your number.
+        We&apos;ll send a one-time code to verify your email.
       </p>
 
-      {/* Phone Number Input Form */}
+      {/* Email Input Form */}
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="space-y-1.5">
-          <Label htmlFor="phone-number" className="text-xs text-gray-700">
-            Phone number
+          <Label htmlFor="email" className="text-xs text-gray-700">
+            Email address
           </Label>
           <Input
-            id="phone-number"
-            type="tel"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="98765 43210"
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="name@example.com"
             prefixElement={
-              <div className="h-full flex items-center gap-1.5 px-3.5 border-r border-gray-200 bg-gray-50/60 text-gray-700 font-medium text-xs sm:text-sm select-none">
-                <span>{countryCode}</span>
-                <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
+              <div className="h-full flex items-center px-3.5 border-r border-gray-200 bg-gray-50/60 text-gray-400 select-none">
+                <Mail className="w-4 h-4 text-gray-400" />
               </div>
             }
           />
