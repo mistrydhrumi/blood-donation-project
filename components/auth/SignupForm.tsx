@@ -14,6 +14,7 @@ import {
   EyeOff,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase/supabase";
+import { signUpSchema } from "@/lib/validations/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,22 +29,77 @@ export function SignupForm() {
   const [message, setMessage] = useState("");
   const [emailSent, setEmailSent] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<{
+    name?: string;
+    email?: string;
+    phone?: string;
+    password?: string;
+  }>({});
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+    if (fieldErrors.name) {
+      setFieldErrors((prev) => ({ ...prev, name: undefined }));
+    }
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (fieldErrors.email) {
+      setFieldErrors((prev) => ({ ...prev, email: undefined }));
+    }
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(e.target.value);
+    if (fieldErrors.phone) {
+      setFieldErrors((prev) => ({ ...prev, phone: undefined }));
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (fieldErrors.password) {
+      setFieldErrors((prev) => ({ ...prev, password: undefined }));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setLoading(true);
     setMessage("");
     setIsError(false);
 
+    // Validate using Zod schema
+    const result = signUpSchema.safeParse({ name, email, phone, password });
+    if (!result.success) {
+      const errors: {
+        name?: string;
+        email?: string;
+        phone?: string;
+        password?: string;
+      } = {};
+      for (const issue of result.error.issues) {
+        const field = issue.path[0] as "name" | "email" | "phone" | "password";
+        if (field && !errors[field]) {
+          errors[field] = issue.message;
+        }
+      }
+      setFieldErrors(errors);
+      return;
+    }
+
+    setFieldErrors({});
+    setLoading(true);
+
     try {
       const { data, error } = await supabase.auth.signUp({
-        email: email.trim(),
-        password,
+        email: result.data.email,
+        password: result.data.password,
         options: {
           data: {
-            full_name: name.trim(),
-            phone: phone.trim(),
+            full_name: result.data.name,
+            phone: result.data.phone, // Normalized to +91XXXXXXXXXX
           },
           emailRedirectTo: `${window.location.origin}/login`,
         },
@@ -86,7 +142,7 @@ export function SignupForm() {
         </h2>
 
         <p className="mt-3 text-sm leading-6 text-gray-500">
-          We've sent a confirmation link to{" "}
+          We&apos;ve sent a confirmation link to{" "}
           <span className="font-semibold text-gray-800">{email}</span>.
           Open the email and click the link to activate your account.
         </p>
@@ -123,7 +179,7 @@ export function SignupForm() {
         Fill in your details to get started with BloodSetu.
       </p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+      <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-3.5">
         <div className="space-y-1.5">
           <Label htmlFor="name" className="text-xs font-medium text-gray-700">
             Full Name
@@ -133,15 +189,20 @@ export function SignupForm() {
             type="text"
             autoComplete="name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleNameChange}
             placeholder="John Doe"
-            required
+            error={fieldErrors.name}
             prefixElement={
               <div className="flex h-full select-none items-center border-r border-gray-200 bg-gray-50/60 px-3.5 text-gray-400">
                 <User className="h-4 w-4" />
               </div>
             }
           />
+          {fieldErrors.name && (
+            <p className="text-xs text-red-600" role="alert">
+              {fieldErrors.name}
+            </p>
+          )}
         </div>
 
         <div className="space-y-1.5">
@@ -153,15 +214,20 @@ export function SignupForm() {
             type="email"
             autoComplete="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             placeholder="name@example.com"
-            required
+            error={fieldErrors.email}
             prefixElement={
               <div className="flex h-full select-none items-center border-r border-gray-200 bg-gray-50/60 px-3.5 text-gray-400">
                 <Mail className="h-4 w-4" />
               </div>
             }
           />
+          {fieldErrors.email && (
+            <p className="text-xs text-red-600" role="alert">
+              {fieldErrors.email}
+            </p>
+          )}
         </div>
 
         <div className="space-y-1.5">
@@ -173,15 +239,20 @@ export function SignupForm() {
             type="tel"
             autoComplete="tel"
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={handlePhoneChange}
             placeholder="+91 98765 43210"
-            required
+            error={fieldErrors.phone}
             prefixElement={
               <div className="flex h-full select-none items-center border-r border-gray-200 bg-gray-50/60 px-3.5 text-gray-400">
                 <Phone className="h-4 w-4" />
               </div>
             }
           />
+          {fieldErrors.phone && (
+            <p className="text-xs text-red-600" role="alert">
+              {fieldErrors.phone}
+            </p>
+          )}
         </div>
 
         <div className="space-y-1.5">
@@ -196,10 +267,9 @@ export function SignupForm() {
             type={showPassword ? "text" : "password"}
             autoComplete="new-password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             placeholder="Enter your password"
-            minLength={6}
-            required
+            error={fieldErrors.password}
             prefixElement={
               <div className="flex h-full select-none items-center border-r border-gray-200 bg-gray-50/60 px-3.5 text-gray-400">
                 <Lock className="h-4 w-4" />
@@ -220,6 +290,11 @@ export function SignupForm() {
               </button>
             }
           />
+          {fieldErrors.password && (
+            <p className="text-xs text-red-600" role="alert">
+              {fieldErrors.password}
+            </p>
+          )}
         </div>
 
         <Button

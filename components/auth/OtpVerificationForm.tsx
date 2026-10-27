@@ -18,11 +18,12 @@ export function OtpVerificationForm({
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  // Format phone display with dots if a raw phone number is provided
+  // Format phone display with dots if a raw or normalized phone number is provided
+  const rawDigits = phoneNumber.replace(/^\+91\s*/, "");
   const displayPhone = phoneNumber.includes("•")
     ? phoneNumber
-    : phoneNumber.length >= 10
-    ? `+91 ${phoneNumber.slice(0, 2)}••••••${phoneNumber.slice(-3)}`
+    : rawDigits.length >= 10
+    ? `+91 ${rawDigits.slice(0, 2)}••••••${rawDigits.slice(-3)}`
     : "+91 98••••••210";
 
   const handleChange = (index: number, value: string) => {

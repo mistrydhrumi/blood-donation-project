@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 import { supabase } from "@/lib/supabase/supabase";
+import { signInSchema } from "@/lib/validations/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,20 +25,54 @@ export function SignInForm() {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState<{
+        email?: string;
+        password?: string;
+    }>({});
+
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+        if (fieldErrors.email) {
+            setFieldErrors((prev) => ({ ...prev, email: undefined }));
+        }
+    };
+
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+        if (fieldErrors.password) {
+            setFieldErrors((prev) => ({ ...prev, password: undefined }));
+        }
+    };
 
     const handleSubmit = async (
         e: React.FormEvent<HTMLFormElement>
     ) => {
         e.preventDefault();
 
-        setLoading(true);
         setMessage("");
         setIsError(false);
 
+        // Zod validation
+        const result = signInSchema.safeParse({ email, password });
+        if (!result.success) {
+            const errors: { email?: string; password?: string } = {};
+            for (const issue of result.error.issues) {
+                const field = issue.path[0] as "email" | "password";
+                if (field && !errors[field]) {
+                    errors[field] = issue.message;
+                }
+            }
+            setFieldErrors(errors);
+            return;
+        }
+
+        setFieldErrors({});
+        setLoading(true);
+
         try {
             const { error } = await supabase.auth.signInWithPassword({
-                email: email.trim(),
-                password,
+                email: result.data.email,
+                password: result.data.password,
             });
 
             if (error) {
@@ -71,7 +106,7 @@ export function SignInForm() {
                 Enter your email and password to continue.
             </p>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
                 <div className="space-y-1.5">
                     <Label htmlFor="signin-email" className="text-xs font-medium text-gray-700">
                         Email address
@@ -82,15 +117,20 @@ export function SignInForm() {
                         type="email"
                         autoComplete="email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleEmailChange}
                         placeholder="name@example.com"
-                        required
+                        error={fieldErrors.email}
                         prefixElement={
                             <div className="flex h-full items-center border-r border-gray-200 bg-gray-50/60 px-3.5 text-gray-400">
                                 <Mail className="h-4 w-4" />
                             </div>
                         }
                     />
+                    {fieldErrors.email && (
+                        <p className="text-xs text-red-600" role="alert">
+                            {fieldErrors.email}
+                        </p>
+                    )}
                 </div>
 
                 <div className="space-y-1.5">
@@ -103,9 +143,9 @@ export function SignInForm() {
                         type={showPassword ? "text" : "password"}
                         autoComplete="current-password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handlePasswordChange}
                         placeholder="Enter your password"
-                        required
+                        error={fieldErrors.password}
                         prefixElement={
                             <div className="flex h-full items-center border-r border-gray-200 bg-gray-50/60 px-3.5 text-gray-400">
                                 <Lock className="h-4 w-4" />
@@ -126,6 +166,11 @@ export function SignInForm() {
                             </button>
                         }
                     />
+                    {fieldErrors.password && (
+                        <p className="text-xs text-red-600" role="alert">
+                            {fieldErrors.password}
+                        </p>
+                    )}
                 </div>
 
                 <Button
