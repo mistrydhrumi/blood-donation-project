@@ -5,21 +5,22 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   prefixElement?: React.ReactNode;
+  suffixElement?: React.ReactNode;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, error, prefixElement, ...props }, ref) => {
-    if (prefixElement) {
+  ({ className, type, error, prefixElement, suffixElement, ...props }, ref) => {
+    if (prefixElement || suffixElement) {
       return (
         <div
           className={cn(
-            "flex h-12 w-full rounded-xl border bg-white shadow-xs transition-all overflow-hidden",
+            "flex h-12 w-full items-center rounded-xl border bg-white shadow-xs transition-all overflow-hidden",
             error
               ? "border-red-500 ring-2 ring-red-100"
               : "border-gray-200 hover:border-gray-300 focus-within:border-[#C52227] focus-within:ring-2 focus-within:ring-red-500/20"
           )}
         >
-          <div className="flex items-center h-full shrink-0">{prefixElement}</div>
+          {prefixElement && <div className="flex items-center h-full shrink-0">{prefixElement}</div>}
           <input
             type={type}
             className={cn(
@@ -29,6 +30,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             {...props}
           />
+          {suffixElement && <div className="flex items-center h-full shrink-0 pr-3.5">{suffixElement}</div>}
         </div>
       );
     }

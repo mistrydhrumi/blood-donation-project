@@ -1,31 +1,28 @@
-import { Metadata } from "next";
+
+import type { Metadata } from "next";
 import { AuthHeroPanel } from "@/components/auth/AuthHeroPanel";
-import { AuthFormFlow } from "@/components/auth/AuthFormFlow";
+import { SignInForm } from "@/components/auth/SignInForm";
 import { Brand } from "@/components/auth/BrandLogo";
 
 export const metadata: Metadata = {
-  title: "Login | BloodSetu - Blood Donation Platform",
-  description:
-    "Log in to BloodSetu to connect with blood donors and requesters quickly and securely.",
+    title: "Login | BloodSetu",
+    description: "Sign in to your BloodSetu account.",
 };
 
 export default function LoginPage() {
-  return (
-    <main className="h-screen w-full flex flex-col lg:flex-row bg-white overflow-hidden">
-      {/* Mobile Header (visible only on small screens) */}
-      <div className="lg:hidden shrink-0 flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white">
-        <Brand className="text-gray-900" />
-      </div>
+    return (
+        <main className="flex h-screen w-full flex-col overflow-hidden bg-white lg:flex-row">
+            <div className="flex shrink-0 items-center justify-between border-b border-gray-100 px-6 py-4 lg:hidden">
+                <Brand className="text-gray-900" />
+            </div>
 
-      {/* Left Column: Hero Branding & Trust Panel */}
-      <section className="hidden lg:flex lg:w-1/2 h-full relative overflow-hidden">
-        <AuthHeroPanel />
-      </section>
+            <section className="relative hidden h-full overflow-hidden lg:flex lg:w-1/2">
+                <AuthHeroPanel />
+            </section>
 
-      {/* Right Column: Phone Authentication & Verification Code Flow */}
-      <section className="flex-1 h-full flex items-center justify-center bg-white overflow-y-auto lg:overflow-hidden py-4">
-        <AuthFormFlow />
-      </section>
-    </main>
-  );
+            <section className="flex flex-1 items-center justify-center overflow-y-auto bg-white py-4">
+                <SignInForm />
+            </section>
+        </main>
+    );
 }

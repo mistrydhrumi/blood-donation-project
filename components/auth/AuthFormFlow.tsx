@@ -1,12 +1,14 @@
 "use client";
 
 import React from "react";
-import { PhoneLoginForm } from "./PhoneLoginForm";
+import { SignupForm } from "./SignupForm";
+
+
 
 export function AuthFormFlow() {
   return (
     <div className="w-full flex items-center justify-center">
-      <PhoneLoginForm />
+      <SignupForm />
     </div>
   );
 }
