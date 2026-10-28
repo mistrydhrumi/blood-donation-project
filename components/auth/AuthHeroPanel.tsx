@@ -5,7 +5,7 @@ import { Brand } from "./BrandLogo";
 
 export function AuthHeroPanel() {
   return (
-    <div className="relative flex flex-col justify-between w-full h-full p-6 sm:p-10 xl:p-14 overflow-hidden bg-[#6a0e13] select-none">
+    <div className="relative flex flex-col justify-between w-full h-full p-6 sm:p-10 xl:p-14 overflow-hidden bg-red-950 select-none">
       {/* Background Image with Authentic Hospital/Donation Scene */}
       <div className="absolute inset-0 pointer-events-none">
         <Image
@@ -17,9 +17,9 @@ export function AuthHeroPanel() {
           className="object-cover object-center"
         />
         {/* Red Duotone Color Overlay matching Figma design */}
-        <div className="absolute inset-0 bg-[#6E0F14]/80 mix-blend-multiply" />
-        {/* <div className="absolute inset-0 bg-gradient-to-b from-[#7A1218]/90 via-transparent to-[#4A080D]/90" /> */}
-        <div className="absolute inset-0 bg-[#4A080D]/75" />
+        <div className="absolute inset-0 bg-red-900/80 mix-blend-multiply" />
+
+        <div className="absolute inset-0 bg-red-950/75" />
       </div>
 
       {/* Top Branding Section */}
@@ -32,13 +32,13 @@ export function AuthHeroPanel() {
         {/* Pill Badge */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md mb-5 xl:mb-7">
           <ShieldCheck className="w-4 h-4 text-white/90" />
-          <span className="text-[11px] font-semibold tracking-widest text-white/95 uppercase">
+          <span className="text-xs font-semibold tracking-widest text-white/95 uppercase">
             Trusted Community Platform
           </span>
         </div>
 
         {/* Display Heading */}
-        <h1 className="text-3xl sm:text-4xl xl:text-[48px] text-white tracking-tight leading-[1.12]">
+        <h1 className="text-3xl sm:text-4xl xl:text-5xl text-white tracking-tight leading-tight">
           Be the bridge <br />
           someone is waiting <br />
           for.

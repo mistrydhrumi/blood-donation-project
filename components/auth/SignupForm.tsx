@@ -132,9 +132,9 @@ export function SignupForm() {
 
   if (emailSent) {
     return (
-      <div className="mx-auto flex w-full max-w-[420px] flex-col justify-center px-6 py-8">
+      <div className="mx-auto flex w-full max-w-md flex-col justify-center px-6 py-8">
         <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-red-50">
-          <Mail className="h-7 w-7 text-[#C52227]" />
+          <Mail className="h-7 w-7 text-red-700" />
         </div>
 
         <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
@@ -157,7 +157,7 @@ export function SignupForm() {
             setEmailSent(false);
             setMessage("");
           }}
-          className="mt-6 text-left text-sm font-medium text-[#C52227] hover:underline"
+          className="mt-6 text-left text-sm font-medium text-red-800 hover:underline"
         >
           Back to sign up
         </button>
@@ -166,12 +166,12 @@ export function SignupForm() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-[420px] flex-col justify-center px-6 py-6 sm:py-8">
-      <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C52227] sm:text-xs">
+    <div className="mx-auto flex w-full max-w-md flex-col justify-center px-6 py-6 sm:py-8">
+      <span className="block text-xs font-semibold uppercase tracking-widest text-red-700">
         Welcome to BloodSetu
       </span>
 
-      <h2 className="mb-1 mt-1.5 text-2xl font-bold leading-tight tracking-tight text-gray-900 sm:text-3xl xl:text-[32px]">
+      <h2 className="mb-1 mt-1.5 text-2xl font-bold leading-tight tracking-tight text-gray-900 sm:text-3xl xl:text-3xl">
         Create your account
       </h2>
 
@@ -199,7 +199,7 @@ export function SignupForm() {
             }
           />
           {fieldErrors.name && (
-            <p className="text-xs text-red-600" role="alert">
+            <p className="text-xs text-red-700" role="alert">
               {fieldErrors.name}
             </p>
           )}
@@ -224,7 +224,7 @@ export function SignupForm() {
             }
           />
           {fieldErrors.email && (
-            <p className="text-xs text-red-600" role="alert">
+            <p className="text-xs text-red-700" role="alert">
               {fieldErrors.email}
             </p>
           )}
@@ -249,7 +249,7 @@ export function SignupForm() {
             }
           />
           {fieldErrors.phone && (
-            <p className="text-xs text-red-600" role="alert">
+            <p className="text-xs text-red-700" role="alert">
               {fieldErrors.phone}
             </p>
           )}
@@ -291,7 +291,7 @@ export function SignupForm() {
             }
           />
           {fieldErrors.password && (
-            <p className="text-xs text-red-600" role="alert">
+            <p className="text-xs text-red-700" role="alert">
               {fieldErrors.password}
             </p>
           )}
@@ -301,7 +301,7 @@ export function SignupForm() {
           type="submit"
           size="lg"
           disabled={loading}
-          className="mt-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#C52227] py-3.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-[#B01B20] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-red-700 py-3.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-red-800 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
         >
           <span>{loading ? "Creating account..." : "Create account"}</span>
           {!loading && <ArrowRight className="h-4 w-4" />}
@@ -310,7 +310,7 @@ export function SignupForm() {
         {message && (
           <p
             role="alert"
-            className={`text-sm ${isError ? "text-red-600" : "text-green-700"}`}
+            className={`text-sm ${isError ? "text-red-700" : "text-green-700"}`}
           >
             {message}
           </p>
@@ -321,7 +321,7 @@ export function SignupForm() {
         <div className="absolute inset-0 flex items-center">
           <div className="w-full border-t border-gray-200" />
         </div>
-        <div className="relative flex items-center gap-1.5 bg-white px-3 text-[11px] font-medium uppercase tracking-wider text-gray-400">
+        <div className="relative flex items-center gap-1.5 bg-white px-3 text-xs font-medium uppercase tracking-wider text-gray-400">
           <ShieldCheck className="h-3.5 w-3.5" />
           <span>Safe &amp; secure</span>
         </div>

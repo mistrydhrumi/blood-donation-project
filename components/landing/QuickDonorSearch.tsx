@@ -90,8 +90,8 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
           className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6"
         >
           {/* 1. Header / Icon Block */}
-          <div className="flex items-center gap-3.5 lg:min-w-[210px] shrink-0">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-[#C52227] shrink-0">
+          <div className="flex items-center gap-3.5 lg:min-w-52 shrink-0">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-50 text-red-700 shrink-0">
               <Search className="h-5 w-5" />
             </div>
             <div>
@@ -108,7 +108,7 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 flex-1">
             {/* Blood Group Selector */}
             <div className="relative" ref={bloodGroupRef}>
-              <label className="block text-[11px] font-semibold text-gray-400 tracking-wider mb-1.5 uppercase">
+              <label className="block text-xs font-semibold text-gray-400 tracking-wider mb-1.5 uppercase">
                 Blood group
               </label>
 
@@ -118,7 +118,7 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                   setBloodGroupOpen((prev) => !prev);
                   setCityOpen(false);
                 }}
-                className="flex h-12 w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-3.5 text-sm font-semibold text-gray-900 shadow-2xs transition-all hover:border-gray-300 focus:border-[#C52227] focus:ring-2 focus:ring-red-500/20 outline-none cursor-pointer"
+                className="flex h-12 w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-3.5 text-sm font-semibold text-gray-900 shadow-2xs transition-all hover:border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none cursor-pointer"
                 aria-haspopup="listbox"
                 aria-expanded={bloodGroupOpen}
               >
@@ -129,9 +129,8 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                   </span>
                 </div>
                 <ChevronDown
-                  className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${
-                    bloodGroupOpen ? "rotate-180 text-gray-600" : ""
-                  }`}
+                  className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${bloodGroupOpen ? "rotate-180 text-gray-600" : ""
+                    }`}
                 />
               </button>
 
@@ -148,11 +147,10 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                           setSelectedBloodGroup(group);
                           setBloodGroupOpen(false);
                         }}
-                        className={`flex h-10 items-center justify-center rounded-lg text-sm font-bold transition-colors cursor-pointer ${
-                          isSelected
-                            ? "bg-[#C52227] text-white shadow-xs"
-                            : "text-gray-700 hover:bg-red-50 hover:text-[#C52227]"
-                        }`}
+                        className={`flex h-10 items-center justify-center rounded-lg text-sm font-bold transition-colors cursor-pointer ${isSelected
+                          ? "bg-red-700 text-white shadow-xs"
+                          : "text-gray-700 hover:bg-red-50 hover:text-red-800"
+                          }`}
                       >
                         {group}
                       </button>
@@ -164,7 +162,7 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
 
             {/* City Selector */}
             <div className="relative" ref={cityRef}>
-              <label className="block text-[11px] font-semibold text-gray-400 tracking-wider mb-1.5 uppercase">
+              <label className="block text-xs font-semibold text-gray-400 tracking-wider mb-1.5 uppercase">
                 City
               </label>
 
@@ -174,7 +172,7 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                   setCityOpen((prev) => !prev);
                   setBloodGroupOpen(false);
                 }}
-                className="flex h-12 w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-3.5 text-sm font-semibold text-gray-900 shadow-2xs transition-all hover:border-gray-300 focus:border-[#C52227] focus:ring-2 focus:ring-red-500/20 outline-none cursor-pointer"
+                className="flex h-12 w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-3.5 text-sm font-semibold text-gray-900 shadow-2xs transition-all hover:border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none cursor-pointer"
                 aria-haspopup="listbox"
                 aria-expanded={cityOpen}
               >
@@ -185,9 +183,8 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                   </span>
                 </div>
                 <ChevronDown
-                  className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${
-                    cityOpen ? "rotate-180 text-gray-600" : ""
-                  }`}
+                  className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${cityOpen ? "rotate-180 text-gray-600" : ""
+                    }`}
                 />
               </button>
 
@@ -199,7 +196,7 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                     value={citySearchQuery}
                     onChange={(e) => setCitySearchQuery(e.target.value)}
                     placeholder="Search city..."
-                    className="w-full h-9 px-3 rounded-lg border border-gray-200 text-xs text-gray-800 placeholder:text-gray-400 outline-none focus:border-[#C52227] mb-1.5"
+                    className="w-full h-9 px-3 rounded-lg border border-gray-200 text-xs text-gray-800 placeholder:text-gray-400 outline-none focus:border-red-500 mb-1.5"
                     autoFocus
                   />
                   <div className="max-h-48 overflow-y-auto flex flex-col gap-0.5">
@@ -215,15 +212,14 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                               setCityOpen(false);
                               setCitySearchQuery("");
                             }}
-                            className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-left transition-colors cursor-pointer ${
-                              isSelected
-                                ? "bg-red-50 text-[#C52227] font-semibold"
-                                : "text-gray-700 hover:bg-gray-50"
-                            }`}
+                            className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-left transition-colors cursor-pointer ${isSelected
+                              ? "bg-red-50 text-red-700 font-semibold"
+                              : "text-gray-700 hover:bg-gray-50"
+                              }`}
                           >
                             <span>{city}</span>
                             {isSelected && (
-                              <Check className="h-3.5 w-3.5 text-[#C52227]" />
+                              <Check className="h-3.5 w-3.5 text-red-700" />
                             )}
                           </button>
                         );
@@ -243,7 +239,7 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
           <div className="pt-1 sm:pt-0 shrink-0 lg:self-end">
             <button
               type="submit"
-              className="flex h-12 w-full lg:w-auto items-center justify-center gap-2 rounded-xl bg-[#C52227] px-6 text-sm font-semibold text-white shadow-sm transition-all hover:bg-[#A8181D] hover:shadow active:scale-[0.98] cursor-pointer"
+              className="flex h-12 w-full lg:w-auto items-center justify-center gap-2 rounded-xl bg-red-700 px-6 text-sm font-semibold text-white shadow-sm transition-all hover:bg-red-800 hover:shadow active:scale-95 cursor-pointer"
             >
               <span>Search donors</span>
               <ArrowRight className="h-4 w-4" />

@@ -23,8 +23,8 @@ export function OtpVerificationForm({
   const displayPhone = phoneNumber.includes("•")
     ? phoneNumber
     : rawDigits.length >= 10
-    ? `+91 ${rawDigits.slice(0, 2)}••••••${rawDigits.slice(-3)}`
-    : "+91 98••••••210";
+      ? `+91 ${rawDigits.slice(0, 2)}••••••${rawDigits.slice(-3)}`
+      : "+91 98••••••210";
 
   const handleChange = (index: number, value: string) => {
     // Only accept numeric inputs
@@ -70,14 +70,14 @@ export function OtpVerificationForm({
   };
 
   return (
-    <div className="w-full max-w-[420px] mx-auto px-6 py-6 sm:py-8 flex flex-col justify-center">
+    <div className="w-full max-w-md mx-auto px-6 py-6 sm:py-8 flex flex-col justify-center">
       {/* Eyebrow Header */}
-      <span className="text-[11px] sm:text-xs font-bold tracking-[0.16em] uppercase text-[#C52227]">
+      <span className="text-xs font-bold tracking-widest uppercase text-red-700">
         Step 2 of 2
       </span>
 
       {/* Main Title */}
-      <h2 className="text-2xl sm:text-3xl xl:text-[34px] font-bold text-gray-900 tracking-tight mt-2 mb-2 leading-tight">
+      <h2 className="text-2xl sm:text-3xl xl:text-4xl font-bold text-gray-900 tracking-tight mt-2 mb-2 leading-tight">
         Enter verification code
       </h2>
 
@@ -104,7 +104,7 @@ export function OtpVerificationForm({
               onChange={(e) => handleChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
               onPaste={handlePaste}
-              className="w-full h-13 sm:h-14 rounded-xl border border-gray-200 text-center text-xl sm:text-2xl font-bold text-gray-900 bg-white shadow-xs focus:border-[#C52227] focus:ring-2 focus:ring-red-500/20 outline-none transition-all select-none"
+              className="w-full h-13 sm:h-14 rounded-xl border border-gray-200 text-center text-xl sm:text-2xl font-bold text-gray-900 bg-white shadow-xs focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all select-none"
               aria-label={`Digit ${index + 1}`}
             />
           ))}
@@ -114,7 +114,7 @@ export function OtpVerificationForm({
         <Button
           type="submit"
           size="lg"
-          className="w-full bg-[#C52227] hover:bg-[#B01B20] text-white font-medium text-sm rounded-xl py-3.5 shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2"
+          className="w-full bg-red-800 hover:bg-red-800 text-white font-medium text-sm rounded-xl py-3.5 shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2"
         >
           <span>Verify &amp; continue</span>
           <ArrowRight className="w-4 h-4" />
@@ -130,7 +130,7 @@ export function OtpVerificationForm({
         <button
           type="button"
           onClick={onBack}
-          className="text-xs sm:text-sm font-medium text-[#C52227] hover:text-[#9B1519] hover:underline transition-colors cursor-pointer"
+          className="text-xs sm:text-sm font-medium text-red-800 hover:text-red-800 hover:underline transition-colors cursor-pointer"
         >
           Change phone number
         </button>

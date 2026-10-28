@@ -5,20 +5,20 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/20 disabled:pointer-events-none disabled:opacity-50 cursor-pointer active:scale-[0.99] [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/20 disabled:pointer-events-none disabled:opacity-50 cursor-pointer active:scale-95 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-[#C52227] text-white shadow-sm hover:bg-[#B01B20] hover:shadow-md hover:shadow-red-900/10",
+          "bg-red-700 text-white shadow-sm hover:bg-red-800 hover:shadow-md hover:shadow-red-900/10",
         destructive:
-          "bg-red-600 text-white shadow-sm hover:bg-red-700",
+          "bg-red-700 text-white shadow-sm hover:bg-red-800",
         outline:
           "border border-gray-200 bg-white shadow-xs hover:bg-gray-50 text-gray-800",
         secondary:
           "bg-gray-100 text-gray-900 shadow-xs hover:bg-gray-200",
         ghost: "hover:bg-gray-100 text-gray-700",
-        link: "text-[#C52227] underline-offset-4 hover:underline",
+        link: "text-red-700 underline-offset-4 hover:underline hover:text-red-800",
       },
       size: {
         default: "h-11 px-5 py-2.5",

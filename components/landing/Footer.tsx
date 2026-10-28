@@ -16,7 +16,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-[#0B1327] text-white pt-16 sm:pt-20 pb-12 transition-colors">
+    <footer className="bg-slate-950 text-white pt-16 sm:pt-20 pb-12 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main 4-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-14 sm:pb-16">
@@ -29,12 +29,12 @@ export function Footer() {
                 className="inline-flex items-center gap-3 select-none transition-opacity hover:opacity-95"
                 aria-label="BloodSetu home"
               >
-                <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#C52227] text-white shadow-sm">
+                <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-red-700 text-white shadow-sm">
                   <Droplets className="w-5 h-5" fill="currentColor" />
                 </span>
-                <span className="text-xl sm:text-[22px] font-bold tracking-tight">
+                <span className="text-xl sm:text-2xl font-bold tracking-tight">
                   <span className="text-white">Blood</span>
-                  <span className="text-[#C52227]">Setu</span>
+                  <span className="text-red-500">Setu</span>
                 </span>
               </Link>
 

@@ -17,7 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             "flex h-12 w-full items-center rounded-xl border bg-white shadow-xs transition-all overflow-hidden",
             error
               ? "border-red-500 ring-2 ring-red-100"
-              : "border-gray-200 hover:border-gray-300 focus-within:border-[#C52227] focus-within:ring-2 focus-within:ring-red-500/20"
+              : "border-gray-200 hover:border-gray-300 focus-within:border-red-500 focus-within:ring-2 focus-within:ring-red-500/20"
           )}
         >
           {prefixElement && <div className="flex items-center h-full shrink-0">{prefixElement}</div>}
@@ -39,7 +39,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <input
         type={type}
         className={cn(
-          "flex h-12 w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm md:text-base text-gray-900 shadow-xs transition-all placeholder:text-gray-400 focus-visible:outline-none focus-visible:border-[#C52227] focus-visible:ring-2 focus-visible:ring-red-500/20 disabled:cursor-not-allowed disabled:opacity-50",
+          "flex h-12 w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2 text-sm md:text-base text-gray-900 shadow-xs transition-all placeholder:text-gray-400 focus-visible:outline-none focus-visible:border-red-500 focus-visible:ring-2 focus-visible:ring-red-500/20 disabled:cursor-not-allowed disabled:opacity-50",
           error && "border-red-500 ring-2 ring-red-100",
           className
         )}

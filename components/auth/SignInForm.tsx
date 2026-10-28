@@ -93,8 +93,8 @@ export function SignInForm() {
     };
 
     return (
-        <div className="mx-auto flex w-full max-w-[420px] flex-col justify-center px-6 py-6 sm:py-8">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C52227] sm:text-xs">
+        <div className="mx-auto flex w-full max-w-md flex-col justify-center px-6 py-6 sm:py-8">
+            <span className="text-xs font-semibold uppercase tracking-widest text-red-700">
                 Welcome back to BloodSetu
             </span>
 
@@ -127,7 +127,7 @@ export function SignInForm() {
                         }
                     />
                     {fieldErrors.email && (
-                        <p className="text-xs text-red-600" role="alert">
+                        <p className="text-xs text-red-700" role="alert">
                             {fieldErrors.email}
                         </p>
                     )}
@@ -167,7 +167,7 @@ export function SignInForm() {
                         }
                     />
                     {fieldErrors.password && (
-                        <p className="text-xs text-red-600" role="alert">
+                        <p className="text-xs text-red-700" role="alert">
                             {fieldErrors.password}
                         </p>
                     )}
@@ -177,7 +177,7 @@ export function SignInForm() {
                     type="submit"
                     size="lg"
                     disabled={loading}
-                    className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-[#C52227] py-3.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-[#B01B20] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-red-700 py-3.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                     <span>{loading ? "Signing in..." : "Sign in"}</span>
                     {!loading && <ArrowRight className="h-4 w-4" />}
@@ -186,7 +186,7 @@ export function SignInForm() {
                 {message && (
                     <p
                         role="alert"
-                        className={`text-sm ${isError ? "text-red-600" : "text-green-700"
+                        className={`text-sm ${isError ? "text-red-700" : "text-green-700"
                             }`}
                     >
                         {message}
@@ -199,7 +199,7 @@ export function SignInForm() {
                     <div className="w-full border-t border-gray-200" />
                 </div>
 
-                <div className="relative flex items-center gap-1.5 bg-white px-3 text-[11px] font-medium uppercase tracking-wider text-gray-400">
+                <div className="relative flex items-center gap-1.5 bg-white px-3 text-xs font-medium uppercase tracking-wider text-gray-400">
                     <ShieldCheck className="h-3.5 w-3.5" />
                     <span>Safe &amp; secure</span>
                 </div>
@@ -209,7 +209,7 @@ export function SignInForm() {
                 Don&apos;t have an account?{" "}
                 <Link
                     href="/signup"
-                    className="font-medium text-[#C52227] hover:underline"
+                    className="font-medium text-red-700 hover:text-red-700 hover:underline"
                 >
                     Create account
                 </Link>
