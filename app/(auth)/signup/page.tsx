@@ -21,8 +21,10 @@ export default function LoginPage() {
         <AuthHeroPanel />
       </section>
 
-      <section className="flex h-full flex-1 items-center justify-center overflow-y-auto bg-white py-4">
-        <AuthFormFlow />
+      <section className="h-full flex-1 overflow-y-auto bg-white">
+        <div className="min-h-full flex flex-col justify-center py-8 sm:py-12">
+          <AuthFormFlow />
+        </div>
       </section>
     </main>
   );
