@@ -89,7 +89,7 @@ export function DonationAwareness() {
 
               {/* Attribution */}
               <div className="text-xs text-gray-400 font-medium">
-                BloodBridge community
+                BloodSetu community
               </div>
             </div>
           </div>

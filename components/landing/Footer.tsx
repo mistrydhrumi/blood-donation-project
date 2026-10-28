@@ -27,14 +27,14 @@ export function Footer() {
               <Link
                 href="/"
                 className="inline-flex items-center gap-3 select-none transition-opacity hover:opacity-95"
-                aria-label="BloodBridge home"
+                aria-label="BloodSetu home"
               >
                 <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#C52227] text-white shadow-sm">
                   <Droplets className="w-5 h-5" fill="currentColor" />
                 </span>
                 <span className="text-xl sm:text-[22px] font-bold tracking-tight">
                   <span className="text-white">Blood</span>
-                  <span className="text-[#C52227]">Bridge</span>
+                  <span className="text-[#C52227]">Setu</span>
                 </span>
               </Link>
 
@@ -95,14 +95,14 @@ export function Footer() {
               In an emergency
             </h3>
             <p className="mt-5 text-sm text-slate-400 leading-relaxed">
-              Always contact your hospital or local emergency service first. BloodBridge does not replace medical advice.
+              Always contact your hospital or local emergency service first. BloodSetu does not replace medical advice.
             </p>
           </div>
         </div>
 
         {/* Bottom Bar Divider */}
         <div className="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <p>© 2025 BloodBridge</p>
+          <p>© 2025 BloodSetu</p>
           <p>Built for safer, faster connections</p>
         </div>
       </div>
