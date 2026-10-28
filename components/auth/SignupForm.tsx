@@ -167,7 +167,7 @@ export function SignupForm() {
 
   return (
     <div className="mx-auto flex w-full max-w-[420px] flex-col justify-center px-6 py-6 sm:py-8">
-      <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C52227] sm:text-xs">
+      <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C52227] sm:text-xs">
         Welcome to BloodSetu
       </span>
 
