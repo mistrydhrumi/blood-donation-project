@@ -18,8 +18,17 @@
         "name": "next"
       }
     ],
-    "paths": {
-      "@/*": ["./*"]
+     "paths": {
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/schema/*": ["./schema/*"],
+      "@/constant/*":["./constant/*"],
+      "@/services/*":["./services/*"],
+      "@/store/*":["./store/*"],
+      "@/types/*":["./types/*"],
+
+      
     }
   },
   "include": [
