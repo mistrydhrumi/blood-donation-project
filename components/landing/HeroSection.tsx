@@ -55,7 +55,7 @@ export function HeroSection() {
               </Link>
 
               <Link
-                href="/signup"
+                href="/profile-setup"
                 className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-6 py-3.5 text-base font-semibold text-gray-800 shadow-xs transition-all hover:border-gray-300 hover:bg-gray-50 active:scale-95 w-full sm:w-auto"
               >
                 Become a donor

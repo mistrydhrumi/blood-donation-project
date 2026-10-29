@@ -1,21 +1,20 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { CheckCircle } from "lucide-react";
 
-import { supabase } from "@/lib/supabase/supabase";
 import {
   profileStepOneSchema,
   profileStepTwoSchema,
   profileStepThreeSchema,
   profileSetupSchema,
-  toProfilePayload,
   type ProfileStepOneData,
   type ProfileStepTwoData,
   type ProfileStepThreeData,
   type ProfileSetupData,
 } from "@/lib/validations/profile";
+import { getProfileFormData, upsertProfile } from "@/services/profileService";
 
 import { StepIndicator }    from "@/components/profile/StepIndicator";
 import { ProfileStepOne }   from "@/components/profile/ProfileStepOne";
@@ -80,6 +79,21 @@ export function ProfileSetup() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError]   = useState<string | null>(null);
   const [success, setSuccess]           = useState(false);
+
+  /* ── Fetch profile data from service on mount ──────────────────────── */
+
+  useEffect(() => {
+    async function loadProfile() {
+      const initial = await getProfileFormData();
+      if (!initial) return;
+
+      if (initial.step1) setStep1((prev) => ({ ...prev, ...initial.step1 }));
+      if (initial.step2) setStep2((prev) => ({ ...prev, ...initial.step2 }));
+      if (initial.step3) setStep3((prev) => ({ ...prev, ...initial.step3 }));
+    }
+
+    loadProfile();
+  }, []);
 
   /* ── Change handlers ─────────────────────────────────────────────── */
 
@@ -154,24 +168,14 @@ export function ProfileSetup() {
     setSubmitError(null);
 
     try {
-      const { data: { session }, error: sessionErr } = await supabase.auth.getSession();
-      if (sessionErr || !session?.user) {
-        setSubmitError("Your session has expired. Please sign in again to save your profile.");
-        return;
-      }
-
-      const { error: upsertErr } = await supabase
-        .from("profiles")
-        .upsert({ id: session.user.id, ...toProfilePayload(data) }, { onConflict: "id" })
-        .select()
-        .single();
+      const { error: upsertErr } = await upsertProfile(data);
 
       if (upsertErr) {
         if (upsertErr.code === "42501") {
           setSubmitError("Permission denied. Please make sure you are signed in and try again.");
         } else if (upsertErr.code === "42703") {
           setSubmitError(
-            "One or more profile fields are missing from the database. Please run the required SQL migrations (see setup guide)."
+            "One or more profile fields are missing from the database. Please verify your table schema."
           );
         } else {
           setSubmitError(upsertErr.message || "An error occurred while saving your profile. Please try again.");

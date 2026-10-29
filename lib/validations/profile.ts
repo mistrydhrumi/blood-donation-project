@@ -91,26 +91,19 @@ export type ProfileStepTwoData   = z.infer<typeof profileStepTwoSchema>;
 export type ProfileStepThreeData = z.infer<typeof profileStepThreeSchema>;
 export type ProfileSetupData     = z.infer<typeof profileSetupSchema>;
 
-/**
- * Maps combined form data → exact columns in the `profiles` table.
- *
- * Existing columns used: id, role, full_name, city, state, pincode,
- *   blood_group, last_donation_date, is_available, gender
- * New columns needed:    age (integer), weight (numeric), disease (text)
- */
 export function toProfilePayload(data: ProfileSetupData) {
   return {
-    role:               data.role,
-    full_name:          data.fullName,
-    city:               data.city,
-    state:              data.state,
-    pincode:            data.pincode,
+    role:               data.role === "requester" ? "receiver" : data.role,
+    full_name:          data.fullName.trim(),
+    city:               data.city.trim() || null,
+    state:              data.state.trim() || null,
+    pincode:            data.pincode.trim() || null,
     blood_group:        data.bloodGroup,
     last_donation_date: data.lastDonationDate || null,
-    weight:             data.weight,
-    age:                data.age,
-    gender:             data.gender,
-    disease:            data.disease || null,
-    is_available:       data.isAvailable,
+    weight_kg:          data.weight != null ? Number(data.weight) : null,
+    age:                data.age != null ? Number(data.age) : null,
+    gender:             data.gender || null,
+    has_disease:        Boolean(data.disease && data.disease.trim().length > 0),
+    is_available:       Boolean(data.isAvailable),
   };
 }

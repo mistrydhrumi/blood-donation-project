@@ -9,15 +9,15 @@ export const metadata: Metadata = {
 
 export default function ProfileSetupPage() {
   return (
-    <>
+    <div className="flex min-h-screen flex-col bg-slate-100">
       {/* Shared navbar across all three steps */}
       <Navbar activePath="/profile-setup" />
 
-      <main className="w-full bg-slate-100 flex items-start justify-center ">
+      <main className="flex-1 w-full bg-slate-100 flex items-start justify-center pb-12">
         <div className="w-full max-w-2xl">
           <ProfileSetup />
         </div>
       </main>
-    </>
+    </div>
   );
 }

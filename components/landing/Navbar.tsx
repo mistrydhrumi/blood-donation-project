@@ -89,10 +89,10 @@ export function Navbar({ activePath = "/" }: NavbarProps) {
               </Link>
 
               <Link
-                href="/signup"
+                href="/profile-setup"
                 onClick={(e) => {
                   e.preventDefault();
-                  router.push("/signup");
+                  router.push("/profile-setup");
                 }}
                 className="inline-flex items-center justify-center rounded-xl bg-red-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-red-800 hover:shadow active:scale-95 cursor-pointer"
               >
@@ -154,11 +154,11 @@ export function Navbar({ activePath = "/" }: NavbarProps) {
               </Link>
 
               <Link
-                href="/signup"
+                href="/profile-setup"
                 onClick={(e) => {
                   e.preventDefault();
                   setMobileMenuOpen(false);
-                  router.push("/signup");
+                  router.push("/profile-setup");
                 }}
                 className="flex h-11 w-full items-center justify-center rounded-xl bg-red-700 text-sm font-semibold text-white shadow-sm hover:bg-red-800 transition-colors cursor-pointer"
               >
