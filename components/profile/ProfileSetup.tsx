@@ -14,11 +14,11 @@ import {
   type ProfileStepThreeData,
   type ProfileSetupData,
 } from "@/lib/validations/profile";
-import { getProfileFormData, upsertProfile } from "@/services/profileService";
+import { getProfileFormData, upsertProfile } from "@/services/profile.service";
 
-import { StepIndicator }    from "@/components/profile/StepIndicator";
-import { ProfileStepOne }   from "@/components/profile/ProfileStepOne";
-import { ProfileStepTwo }   from "@/components/profile/ProfileStepTwo";
+import { StepIndicator } from "@/components/profile/StepIndicator";
+import { ProfileStepOne } from "@/components/profile/ProfileStepOne";
+import { ProfileStepTwo } from "@/components/profile/ProfileStepTwo";
 import { ProfileStepThree } from "@/components/profile/ProfileStepThree";
 import { ProfileNavigation } from "@/components/profile/ProfileNavigation";
 import { Button } from "@/components/ui/button";
@@ -35,13 +35,13 @@ const DEFAULT_STEP2: ProfileStepTwoData = {
 };
 
 const DEFAULT_STEP3: ProfileStepThreeData = {
-  bloodGroup:      "O+",
+  bloodGroup: "O+",
   lastDonationDate: "",
-  weight:          undefined as unknown as number,
-  age:             undefined as unknown as number,
-  gender:          undefined as unknown as (typeof import("@/lib/validations/profile").GENDERS)[number],
-  disease:         "",
-  isAvailable:     true,
+  weight: undefined as unknown as number,
+  age: undefined as unknown as number,
+  gender: undefined as unknown as (typeof import("@/lib/validations/profile").GENDERS)[number],
+  disease: "",
+  isAvailable: true,
 };
 
 /* ── Error-collection helper ────────────────────────────────────────── */
@@ -77,8 +77,8 @@ export function ProfileSetup() {
   const [errors3, setErrors3] = useState<FieldErrors<ProfileStepThreeData>>({});
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError]   = useState<string | null>(null);
-  const [success, setSuccess]           = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   /* ── Fetch profile data from service on mount ──────────────────────── */
 
@@ -223,8 +223,8 @@ export function ProfileSetup() {
       <StepIndicator currentStep={step} totalSteps={3} />
 
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-6 sm:px-10 py-8 sm:py-10">
-        {step === 1 && <ProfileStepOne   data={step1} errors={errors1} onChange={handleChange1} />}
-        {step === 2 && <ProfileStepTwo   data={step2} errors={errors2} onChange={handleChange2} />}
+        {step === 1 && <ProfileStepOne data={step1} errors={errors1} onChange={handleChange1} />}
+        {step === 2 && <ProfileStepTwo data={step2} errors={errors2} onChange={handleChange2} />}
         {step === 3 && <ProfileStepThree data={step3} errors={errors3} onChange={handleChange3} />}
 
         {submitError && (
