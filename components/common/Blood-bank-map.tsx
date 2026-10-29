@@ -3,6 +3,11 @@
 import { useEffect, useState } from "react";
 import type { LineString } from "geojson";
 import { Spinner } from "@/components/ui/spinner";
+
+import {
+  getNearestBloodBanks,
+  type BloodBank,
+} from "@/services/blood-banks.service";
 import Map, {
   NavigationControl,
   Marker,
@@ -11,23 +16,13 @@ import Map, {
   Layer,
 } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { MapPin, LocateFixed, Search } from "lucide-react";
+import { MapPin, LocateFixed, Search, Landmark } from "lucide-react";
 import BloodBankCard from "../ui/blood-bank-card";
 import { Button } from "../ui/button";
-interface BloodBank {
-  id: string;
-  name: string;
-  address: string;
-  latitude: number;
-  longitude: number;
-  type: string;
-  distanceKm: number;
-  mapsUrl: string;
-}
 
 const token = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
-export default function LocationMap() {
+export default function BloodBankMap() {
   const [userLocation, setUserLocation] = useState<{
     latitude: number;
     longitude: number;
@@ -152,34 +147,34 @@ export default function LocationMap() {
   }
 
   async function nearestBloodBank() {
-    setLoading(true);
-    const response = await fetch("/api/blood-bank", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        latitude: userLocation?.latitude,
-        longitude: userLocation?.longitude,
-      }),
-    });
-
-    const data: { results?: BloodBank[]; error?: string } =
-      await response.json();
-    const results = data.results ?? [];
-
-    setBloodBank(results);
-    setSelectedId(results[0]?.id ?? null);
-
-    if (!response.ok) {
-      throw new Error(data.error ?? "Blood-bank search failed.");
+    if (!userLocation) {
+      setLocationError("Please allow access to your location first.");
+      return;
     }
-    setLoading(false);
+
+    setLoading(true);
+    setLocationError("");
+
+    try {
+      const results = await getNearestBloodBanks(
+        userLocation.latitude,
+        userLocation.longitude,
+      );
+
+      setBloodBank(results);
+      setSelectedId(results[0]?.id ?? null);
+    } catch (error) {
+      setLocationError(
+        error instanceof Error ? error.message : "Blood-bank search failed.",
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <div className="flex gap-4 mt-4 md:mt-8 flex-col md:flex-row">
-      <div className="relative h-48 md:h-[350px] w-full md:w-lg overflow-hidden rounded-xl border [&_.mapboxgl-ctrl-logo]:hidden!">
+    <div className="flex gap-4 mt-4 flex-col lg:flex-row ">
+      <div className="relative h-48 md:h-[350px]  w-full lg:w-lg overflow-hidden rounded-xl border [&_.mapboxgl-ctrl-logo]:hidden!">
         <Map
           {...viewState}
           onMove={(event) => setViewState(event.viewState)}
@@ -257,7 +252,7 @@ export default function LocationMap() {
         </Map>
       </div>
 
-      <div className="flex flex-col gap-4 flex-1 ">
+      <div className="flex flex-col gap-4 flex-1 h-68 md:h-[350px]">
         <div className="flex justify-between items-center">
           <p className="font-semibold text-sm md:text-base">
             Nearest Blood Banks
@@ -270,9 +265,16 @@ export default function LocationMap() {
             Find Blood Bank
           </Button>
         </div>
-        <div className="flex flex-col gap-2 max-h-[350px] overflow-y-auto scrollbar-thin">
+        <div className="flex flex-col gap-2 h-68 md:h-full  overflow-y-auto scrollbar-thin border border-gray-300 px-2 py-4 rounded-sm">
+          {!loading && bloodBank?.length === 0 && (
+            <div className="text-sm font-semibold flex flex-col gap-2 items-center justify-center h-full text-gray-500">
+              <Landmark size={18} />
+              <p> No banks found</p>
+            </div>
+          )}
+
           {loading ? (
-            <div className="min-h-80 flex justify-center items-center">
+            <div className="h-full flex justify-center items-center">
               <Spinner />
             </div>
           ) : (
