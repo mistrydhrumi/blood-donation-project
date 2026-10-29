@@ -22,16 +22,16 @@ const IMPACT_STATS: ImpactStat[] = [
 
 export function CommunityImpact() {
   return (
-    <section className="w-full bg-[#172033] py-16 sm:py-20 lg:py-24">
+    <section className="w-full bg-slate-900 py-16 sm:py-20 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           {/* Left Column: Heading and Context */}
           <div className="lg:col-span-5 flex flex-col items-start">
-            <span className="text-xs font-bold tracking-[0.16em] uppercase text-[#E05252] block mb-3">
+            <span className="text-xs font-bold tracking-widest uppercase text-red-400 block mb-3">
               OUR COMMUNITY IMPACT
             </span>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-[40px] font-bold text-white tracking-tight leading-[1.15] mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-4">
               Small acts. Measurable <br className="hidden sm:inline" />
               hope.
             </h2>
@@ -46,7 +46,7 @@ export function CommunityImpact() {
             {IMPACT_STATS.map((stat, index) => (
               <React.Fragment key={stat.label}>
                 <div className="flex flex-col">
-                  <span className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-white tracking-tight leading-none mb-2">
+                  <span className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-none mb-2">
                     {stat.value}
                   </span>
                   <span className="text-xs sm:text-sm text-slate-400 font-normal">
@@ -57,7 +57,7 @@ export function CommunityImpact() {
                 {/* Vertical Divider Line between stats */}
                 {index < IMPACT_STATS.length - 1 && (
                   <div
-                    className="hidden sm:block w-[1px] h-14 bg-white/10 shrink-0"
+                    className="hidden sm:block w-px h-14 bg-white/10 shrink-0"
                     aria-hidden="true"
                   />
                 )}

@@ -3,7 +3,7 @@ import "./globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: "BloodSetu - Blood Donation Platform",
@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={cn("h-full antialiased font-sans", "font-sans", geist.variable)}>
-      <body className="h-full flex flex-col">{children}</body>
+    <html lang="en" className="h-full antialiased font-sans">
+      <body className="min-h-full flex flex-col bg-white">{children}</body>
     </html>
   );
 }

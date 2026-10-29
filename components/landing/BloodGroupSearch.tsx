@@ -26,17 +26,17 @@ export function BloodGroupSearch() {
       {/* Header Row */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6 sm:mb-8">
         <div>
-          <span className="text-xs font-bold tracking-[0.16em] uppercase text-[#C52227] block mb-1.5 sm:mb-2">
+          <span className="text-xs font-bold tracking-widest uppercase text-red-700 block mb-1.5 sm:mb-2">
             FIND YOUR MATCH
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-bold text-gray-900 tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight leading-tight">
             Search by blood group
           </h2>
         </div>
 
         <Link
           href="/signup?intent=view_all_donors"
-          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#C52227] hover:text-[#A8181D] transition-colors self-start sm:self-end group"
+          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-red-700 hover:text-red-800 transition-colors self-start sm:self-end group"
         >
           <span>View all donors</span>
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -49,14 +49,14 @@ export function BloodGroupSearch() {
           <Link
             key={item.group}
             href={`/signup?intent=search&bloodGroup=${encodeURIComponent(item.group)}`}
-            className="group relative flex flex-col justify-between rounded-2xl border border-gray-200/90 bg-white p-4 sm:p-4.5 transition-all duration-200 hover:border-[#C52227] hover:shadow-md cursor-pointer select-none"
+            className="group relative flex flex-col justify-between rounded-2xl border border-gray-200/90 bg-white p-4 sm:p-4.5 transition-all duration-200 hover:border-red-600 hover:shadow-md cursor-pointer select-none"
           >
             {/* Top row: Blood Group Letter & Arrow Icon */}
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-[#C52227] transition-colors">
+              <span className="text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-red-700 transition-colors">
                 {item.group}
               </span>
-              <ArrowRight className="h-4 w-4 text-gray-300 transition-all duration-200 group-hover:text-[#C52227] group-hover:translate-x-0.5" />
+              <ArrowRight className="h-4 w-4 text-gray-300 transition-all duration-200 group-hover:text-red-700 group-hover:translate-x-0.5" />
             </div>
 
             {/* Bottom: Available Donors Count */}

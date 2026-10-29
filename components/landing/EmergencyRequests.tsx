@@ -64,21 +64,21 @@ export function EmergencyRequests() {
     switch (urgency) {
       case "immediate":
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 border border-red-100/90 px-3 py-1 text-[11px] font-bold tracking-wider text-[#C52227] uppercase">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 border border-red-100/90 px-3 py-1 text-xs font-bold tracking-wider text-red-700 uppercase">
             <AlertCircle className="h-3.5 w-3.5 shrink-0" />
             <span>{label}</span>
           </span>
         );
       case "within_12_hours":
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-50 border border-orange-200/70 px-3 py-1 text-[11px] font-bold tracking-wider text-orange-700 uppercase">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-50 border border-orange-200/70 px-3 py-1 text-xs font-bold tracking-wider text-orange-700 uppercase">
             <Clock className="h-3.5 w-3.5 shrink-0" />
             <span>{label}</span>
           </span>
         );
       case "within_24_hours":
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 border border-amber-200/70 px-3 py-1 text-[11px] font-bold tracking-wider text-amber-800 uppercase">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 border border-amber-200/70 px-3 py-1 text-xs font-bold tracking-wider text-amber-800 uppercase">
             <Clock className="h-3.5 w-3.5 shrink-0" />
             <span>{label}</span>
           </span>
@@ -91,10 +91,10 @@ export function EmergencyRequests() {
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6 sm:mb-8">
         <div>
-          <span className="text-xs font-bold tracking-[0.16em] uppercase text-[#C52227] block mb-1 sm:mb-1.5">
+          <span className="text-xs font-bold tracking-widest uppercase text-red-700 block mb-1 sm:mb-1.5">
             HELP NEEDED NOW
           </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-bold text-gray-900 tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight leading-tight">
             Nearby emergency requests
           </h2>
           <p className="text-sm sm:text-base text-gray-500 font-normal mt-1 sm:mt-1.5">
@@ -104,7 +104,7 @@ export function EmergencyRequests() {
 
         <Link
           href="/signup?intent=view_all_requests"
-          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#C52227] hover:text-[#A8181D] transition-colors self-start sm:self-end group"
+          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-red-700 hover:text-red-800 transition-colors self-start sm:self-end group"
         >
           <span>View all requests</span>
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -129,7 +129,7 @@ export function EmergencyRequests() {
 
               {/* Hospital & Blood Group Details */}
               <div className="flex items-center gap-4 mb-5">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-red-50 text-xl font-bold text-[#C52227]">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-red-50 text-xl font-bold text-red-700">
                   {request.bloodGroup}
                 </div>
 
@@ -152,7 +152,7 @@ export function EmergencyRequests() {
                     <Droplets className="h-4 w-4" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-normal text-gray-400 block leading-tight">
+                    <span className="text-xs font-normal text-gray-400 block leading-tight">
                       Units needed
                     </span>
                     <span className="text-xs sm:text-sm font-bold text-gray-900 block leading-tight mt-0.5">
@@ -167,7 +167,7 @@ export function EmergencyRequests() {
                     <Clock className="h-4 w-4" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-normal text-gray-400 block leading-tight">
+                    <span className="text-xs font-normal text-gray-400 block leading-tight">
                       Required by
                     </span>
                     <span className="text-xs sm:text-sm font-bold text-gray-900 block leading-tight mt-0.5">
@@ -182,7 +182,7 @@ export function EmergencyRequests() {
             <div className="flex items-center gap-2.5 pt-3">
               <Link
                 href={`/signup?intent=request_details&id=${encodeURIComponent(request.id)}`}
-                className="flex-1 flex h-12 items-center justify-center rounded-xl bg-[#C52227] text-sm font-semibold text-white shadow-xs transition-all hover:bg-[#A8181D] hover:shadow active:scale-[0.98]"
+                className="flex-1 flex h-12 items-center justify-center rounded-xl bg-red-700 text-sm font-semibold text-white shadow-xs transition-all hover:bg-red-800 hover:shadow active:scale-95"
               >
                 View details
               </Link>
@@ -193,7 +193,7 @@ export function EmergencyRequests() {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-gray-200 text-gray-700 shadow-2xs transition-colors hover:border-gray-300 hover:bg-gray-50 active:scale-[0.98]"
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-gray-200 text-gray-700 shadow-2xs transition-colors hover:border-gray-300 hover:bg-gray-50 active:scale-95"
                 aria-label={`Share request ${request.code} on WhatsApp`}
               >
                 <MessageCircle className="h-5 w-5" />

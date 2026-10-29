@@ -15,11 +15,11 @@ export function DonationAwareness() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center">
           {/* Left Column: Awareness Information */}
           <div className="lg:col-span-7 flex flex-col items-start">
-            <span className="text-xs font-bold tracking-[0.16em] uppercase text-[#C52227] block mb-3">
+            <span className="text-xs font-bold tracking-widest uppercase text-red-700 block mb-3">
               DONATION AWARENESS
             </span>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-gray-900 tracking-tight leading-[1.14] mb-5 sm:mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-4xl font-bold text-gray-900 tracking-tight leading-tight mb-5 sm:mb-6">
               Your donation can support more than <br className="hidden sm:inline" />
               one life.
             </h2>
@@ -45,7 +45,7 @@ export function DonationAwareness() {
             {/* Read Donation Guidance Link */}
             <Link
               href="/signup?intent=donation_guidance"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#C52227] hover:text-[#A8181D] transition-colors group"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-red-700 hover:text-red-800 transition-colors group"
             >
               <span>Read donation guidance</span>
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -54,16 +54,16 @@ export function DonationAwareness() {
 
           {/* Right Column: Quote Card */}
           <div className="lg:col-span-5">
-            <div className="bg-[#fff5f5] rounded-[28px] sm:rounded-[36px] p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
+            <div className="bg-red-50 rounded-3xl p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
               {/* Top Custom Droplet Outline Icon matching Figma */}
-              <div className="mb-6 sm:mb-8 text-[#C52227]">
+              <div className="mb-6 sm:mb-8 text-red-700">
                 <svg
                   width="36"
                   height="36"
                   viewBox="0 0 32 32"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="text-[#C52227]"
+                  className="text-red-700"
                   aria-hidden="true"
                 >
                   <path
