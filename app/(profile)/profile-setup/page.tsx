@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Navbar } from "@/components/landing/Navbar";
+import { Navbar } from "@/components/common/header";
 import { ProfileSetup } from "@/components/profile/ProfileSetup";
 
 export const metadata: Metadata = {
   title: "Profile Setup | BloodBridge",
-  description: "Complete your BloodBridge profile to connect with donors and requesters.",
+  description:
+    "Complete your BloodBridge profile to connect with donors and requesters.",
 };
 
 export default function ProfileSetupPage() {

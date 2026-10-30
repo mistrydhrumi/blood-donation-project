@@ -2,15 +2,16 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Menu, X, Droplets } from "lucide-react";
 
-export interface NavbarProps {
+interface NavbarProps {
   activePath?: string;
 }
 
-export function Navbar({ activePath = "/" }: NavbarProps) {
+export default function Header({ activePath = "/" }: NavbarProps) {
   const router = useRouter();
+  const pathName = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -35,10 +36,11 @@ export function Navbar({ activePath = "/" }: NavbarProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-200 ${isScrolled
-          ? "bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-xs"
-          : "bg-white/95 backdrop-blur-md border-b border-gray-100"
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-200 ${
+          isScrolled
+            ? "bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-xs"
+            : "bg-white/95 backdrop-blur-md border-b border-gray-100"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18 sm:h-20">
@@ -49,7 +51,10 @@ export function Navbar({ activePath = "/" }: NavbarProps) {
               aria-label="BloodSetu home"
             >
               <span className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-700 text-white shadow-sm">
-                <Droplets className="w-5 h-5 sm:w-5.5 sm:h-5.5" fill="currentColor" />
+                <Droplets
+                  className="w-5 h-5 sm:w-5.5 sm:h-5.5"
+                  fill="currentColor"
+                />
               </span>
               <span className="text-xl sm:text-2xl font-bold tracking-tight">
                 <span className="text-gray-900">Blood</span>
@@ -60,13 +65,14 @@ export function Navbar({ activePath = "/" }: NavbarProps) {
             {/* Desktop Navigation Links */}
             <nav className="hidden md:flex items-center gap-7 lg:gap-8">
               {navLinks.map((link) => {
-                const isActive = link.href === activePath;
+                const isActive = link.href === pathName;
                 return (
                   <Link
                     key={link.label}
                     href={link.href}
-                    className={`text-sm font-medium transition-colors hover:text-red-800 ${isActive ? "text-red-700 font-semibold" : "text-gray-600"
-                      }`}
+                    className={`text-sm font-medium transition-colors hover:text-red-800 ${
+                      isActive ? "text-red-700 font-semibold" : "text-gray-600"
+                    }`}
                   >
                     {link.label}
                   </Link>
@@ -129,10 +135,11 @@ export function Navbar({ activePath = "/" }: NavbarProps) {
                     key={link.label}
                     href={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`px-3 py-2 rounded-lg text-base font-medium transition-colors ${isActive
-                      ? "bg-red-50 text-red-700 font-semibold"
-                      : "text-gray-700 hover:bg-gray-50 hover:text-red-800"
-                      }`}
+                    className={`px-3 py-2 rounded-lg text-base font-medium transition-colors ${
+                      isActive
+                        ? "bg-red-50 text-red-700 font-semibold"
+                        : "text-gray-700 hover:bg-gray-50 hover:text-red-800"
+                    }`}
                   >
                     {link.label}
                   </Link>
@@ -174,5 +181,3 @@ export function Navbar({ activePath = "/" }: NavbarProps) {
     </>
   );
 }
-
-export default Navbar;
