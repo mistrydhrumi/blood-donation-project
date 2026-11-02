@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { LineString } from "geojson";
 import { Spinner } from "@/components/ui/spinner";
 
@@ -14,15 +14,42 @@ import Map, {
   useMap,
   Source,
   Layer,
+  MapRef,
 } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { MapPin, LocateFixed, Landmark } from "lucide-react";
+import { MapPin, LocateFixed, Landmark, Users } from "lucide-react";
 import BloodBankCard from "../ui/blood-bank-card";
 import { Button } from "../ui/button";
 import { fetchRoute } from "@/services/mapbox-directions.service";
 import { getDefaultBloodBanks } from "@/services/defalut-blood-banks.service";
 type LocationStatus = "idle" | "loading" | "success" | "denied" | "error";
 const token = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+
+const addCustomPin = (map: mapboxgl.Map) => {
+  if (map.hasImage("blood-bank-pin")) return;
+
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="64" viewBox="0 0 48 64">
+      <path
+        d="M24 2 C11 2 2 12 2 25 C2 41 24 62 24 62 C24 62 46 41 46 25 C46 12 37 2 24 2Z"
+        fill="#dc2626"
+        stroke="#ffffff"
+        stroke-width="3"
+      />
+      <circle cx="24" cy="24" r="8" fill="#ffffff"/>
+    </svg>
+  `;
+
+  const image = new Image();
+
+  image.onload = () => {
+    if (!map.hasImage("blood-bank-pin")) {
+      map.addImage("blood-bank-pin", image);
+    }
+  };
+
+  image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+};
 
 export default function BloodBankMap() {
   const [userLocation, setUserLocation] = useState<{
@@ -34,6 +61,7 @@ export default function BloodBankMap() {
   const [locationStatus, setLocationStatus] = useState<LocationStatus>("idle");
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
+
   const [routeLoading, setRouteLoading] = useState(false);
   const [routeError, setRouteError] = useState("");
   const [bloodBank, setBloodBank] = useState<BloodBank[]>([]);
@@ -45,6 +73,7 @@ export default function BloodBankMap() {
     latitude: 23.0225,
     zoom: 11,
   });
+  const mapRef = useRef<MapRef>(null);
   useEffect(() => {
     if (!selectedBank) return;
 
@@ -288,6 +317,15 @@ export default function BloodBankMap() {
             </div>
           )}
           <Map
+            ref={mapRef}
+            {...viewState}
+            onLoad={() => {
+              const map = mapRef.current?.getMap();
+
+              if (map) {
+                addCustomPin(map);
+              }
+            }}
             {...viewState}
             onMove={(event) => setViewState(event.viewState)}
             mapboxAccessToken={token}
@@ -332,18 +370,32 @@ export default function BloodBankMap() {
               </Source>
             )}
             {selectedBank && (
-              <Marker
-                latitude={selectedBank.latitude}
-                longitude={selectedBank.longitude}
-                anchor="bottom"
+              <Source
+                id="selected-bank-source"
+                type="geojson"
+                data={{
+                  type: "Feature",
+                  properties: {},
+                  geometry: {
+                    type: "Point",
+                    coordinates: [
+                      selectedBank.longitude,
+                      selectedBank.latitude,
+                    ],
+                  },
+                }}
               >
-                <div className="flex flex-col items-center">
-                  <MapPin size={30} color="green" fill="white" />
-                  {/* <span className="rounded bg-white px-2 py-1 text-xs shadow">
-                  {selectedBank.name}
-                </span> */}
-                </div>
-              </Marker>
+                <Layer
+                  id="selected-bank-pin"
+                  type="symbol"
+                  layout={{
+                    "icon-image": "blood-bank-pin",
+                    "icon-size": 0.5,
+                    "icon-anchor": "bottom",
+                    "icon-allow-overlap": true,
+                  }}
+                />
+              </Source>
             )}
             {selectedId && routes[selectedId] && (
               <Source
