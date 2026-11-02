@@ -18,7 +18,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className="h-full antialiased font-sans">
       <body className="min-h-full flex flex-col bg-white">
-        <Header activePath="/" />
+        <Header />
         {children}
         <Footer />
       </body>

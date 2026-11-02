@@ -263,6 +263,30 @@ export default function BloodBankMap() {
           </div>
         </div>
         <div className="relative h-48 md:h-[400px] lg:flex-1 lg:w-lg overflow-hidden rounded-xl border [&_.mapboxgl-ctrl-logo]:hidden!">
+          {locationStatus === "loading" && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/70">
+              <div className="flex items-center gap-3 rounded-lg bg-white px-5 py-4 shadow-lg">
+                <div className="h-5 w-5 animate-spin rounded-full border-2 border-gray-300 border-t-blue-600" />
+                <p className="text-sm font-medium text-gray-700">
+                  Fetching your location...
+                </p>
+              </div>
+            </div>
+          )}
+          {(locationStatus === "denied" || locationStatus === "error") && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 p-4">
+              <div className="flex w-full max-w-sm flex-col items-center  rounded-xl bg-white p-6 text-center shadow-lg">
+                <div className="rounded-full bg-red-50 p-3">
+                  <LocateFixed className="h-7 w-7 text-red-500" />
+                </div>
+
+                <Button onClick={requestUserLocation} className="w-full mt-4">
+                  <LocateFixed className="mr-2 h-4 w-4" />
+                  Use My Location
+                </Button>
+              </div>
+            </div>
+          )}
           <Map
             {...viewState}
             onMove={(event) => setViewState(event.viewState)}
@@ -271,31 +295,6 @@ export default function BloodBankMap() {
             attributionControl={false}
             style={{ position: "absolute", inset: 0 }}
           >
-            {locationStatus === "loading" && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/70">
-                <div className="flex items-center gap-3 rounded-lg bg-white px-5 py-4 shadow-lg">
-                  <div className="h-5 w-5 animate-spin rounded-full border-2 border-gray-300 border-t-blue-600" />
-                  <p className="text-sm font-medium text-gray-700">
-                    Fetching your location...
-                  </p>
-                </div>
-              </div>
-            )}
-            {(locationStatus === "denied" || locationStatus === "error") && (
-              <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 p-4">
-                <div className="flex w-full max-w-sm flex-col items-center  rounded-xl bg-white p-6 text-center shadow-lg">
-                  <div className="rounded-full bg-red-50 p-3">
-                    <LocateFixed className="h-7 w-7 text-red-500" />
-                  </div>
-
-                  <Button onClick={requestUserLocation} className="w-full mt-4">
-                    <LocateFixed className="mr-2 h-4 w-4" />
-                    Use My Location
-                  </Button>
-                </div>
-              </div>
-            )}
-
             <NavigationControl
               position="bottom-right"
               showCompass={true}
@@ -304,14 +303,33 @@ export default function BloodBankMap() {
                 margin: "0 12px 12px 12px",
               }}
             />
-            {userLocation && locationStatus == "success" && (
-              <Marker
-                latitude={userLocation.latitude}
-                longitude={userLocation.longitude}
-                anchor="bottom"
+            {userLocation && locationStatus === "success" && (
+              <Source
+                id="user-location"
+                type="geojson"
+                data={{
+                  type: "Feature",
+                  properties: {},
+                  geometry: {
+                    type: "Point",
+                    coordinates: [
+                      userLocation.longitude,
+                      userLocation.latitude,
+                    ],
+                  },
+                }}
               >
-                <MapPin size={30} color="white" fill="red" />
-              </Marker>
+                <Layer
+                  id="user-location-dot"
+                  type="circle"
+                  paint={{
+                    "circle-radius": 8,
+                    "circle-color": "#2563eb",
+                    "circle-stroke-width": 3,
+                    "circle-stroke-color": "#ffffff",
+                  }}
+                />
+              </Source>
             )}
             {selectedBank && (
               <Marker
