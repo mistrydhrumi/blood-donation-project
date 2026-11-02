@@ -1,10 +1,14 @@
 import type { LineString } from "geojson";
 
 interface FetchRouteParams {
-  userLatitude: number;
-  userLongitude: number;
-  bankLatitude: number;
-  bankLongitude: number;
+  user: {
+    latitude: number;
+    longitude: number;
+  };
+  bank: {
+    latitude: number;
+    longitude: number;
+  };
   token: string;
   signal?: AbortSignal;
 }
@@ -16,17 +20,15 @@ interface MapboxDirectionsResponse {
 }
 
 export async function fetchRoute({
-  userLatitude,
-  userLongitude,
-  bankLatitude,
-  bankLongitude,
+  user,
+  bank,
   token,
   signal,
 }: FetchRouteParams): Promise<LineString> {
   const url =
-    `https://api.mapbox.com/directions/v5/mapbox/driving/` +
-    `${userLongitude},${userLatitude};` +
-    `${bankLongitude},${bankLatitude}` +
+    `${process.env.NEXT_PUBLIC_MAPBOX_DIRECTION_API}mapbox/driving/` +
+    `${user.longitude},${user.latitude};` +
+    `${bank.longitude},${bank.latitude}` +
     `?geometries=geojson&overview=full&access_token=${token}`;
 
   const response = await fetch(url, { signal });
