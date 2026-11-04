@@ -5,6 +5,8 @@ import BloodGroupSearch from "@/components/landing/BloodGroupSearch";
 import EmergencyRequests from "@/components/landing/EmergencyRequests";
 import CommunityImpact from "@/components/landing/CommunityImpact";
 import DonationAwareness from "@/components/landing/DonationAwareness";
+import Header from "../components/common/header";
+import Footer from "../components/common/footer";
 
 export const metadata: Metadata = {
   title: "BloodSetu - Connect with Blood Donors & Save Lives",
@@ -15,6 +17,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="min-h-screen flex flex-col bg-white text-gray-900 selection:bg-red-500 selection:text-white">
+      <Header />
       <HeroSection />
 
       <QuickDonorSearch />
@@ -26,6 +29,7 @@ export default function Home() {
       <CommunityImpact />
 
       <DonationAwareness />
+      <Footer />
     </main>
   );
 }

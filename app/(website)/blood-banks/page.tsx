@@ -1,4 +1,4 @@
-import BloodBankMap from "@/components/common/Blood-bank-map";
+import BloodBankMap from "@/components/common/blood-bank-map";
 
 export default function FindNearstBloodBankPage() {
   return (
