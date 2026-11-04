@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { List, Map as MapIcon, ChevronDown, Users, RotateCcw, HeartHandshake } from "lucide-react";
 import { DonorCard, type DonorItem } from "./DonorCard";
 import { DonorSidebarFilters, type FilterState } from "./DonorSidebarFilters";
@@ -10,6 +11,16 @@ import { DonorMap } from "./DonorMap";
 import { fetchDonorsFromSupabase } from "@/services/donors.service";
 
 export function DonorDirectory() {
+  const searchParams = useSearchParams();
+  const queryBloodGroup = searchParams.get("bloodGroup");
+  const queryCity = searchParams.get("city");
+
+  const normalizeBloodGroupParam = (bg: string | null): string => {
+    if (!bg || !bg.trim()) return "All groups";
+    // Handle URL decoding where '+' might become ' ' (e.g., 'A ' -> 'A+')
+    return bg.trim().replace(/\s+/g, "+").toUpperCase();
+  };
+
   const [donors, setDonors] = useState<DonorItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
@@ -20,14 +31,28 @@ export function DonorDirectory() {
   const [selectedDonor, setSelectedDonor] = useState<DonorItem | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  // Filters State matching sidebar
-  const [filters, setFilters] = useState<FilterState>({
-    bloodGroup: "All groups",
-    city: "",
+  // Filters State initialized from search params if present
+  const [filters, setFilters] = useState<FilterState>(() => ({
+    bloodGroup: normalizeBloodGroupParam(queryBloodGroup),
+    city: queryCity && queryCity.trim() ? queryCity.trim() : "",
     distance: "Any distance",
     availableNow: false,
     availableToday: false,
-  });
+  }));
+
+  // Synchronize filters when searchParams change (e.g. navigation from landing page)
+  useEffect(() => {
+    const bg = searchParams.get("bloodGroup");
+    const c = searchParams.get("city");
+
+    if (bg !== null || c !== null) {
+      setFilters((prev) => ({
+        ...prev,
+        bloodGroup: bg !== null ? normalizeBloodGroupParam(bg) : prev.bloodGroup,
+        city: c !== null ? c.trim() : prev.city,
+      }));
+    }
+  }, [searchParams]);
 
   // Query Supabase profiles table on mount and when refresh is triggered
   useEffect(() => {
@@ -73,6 +98,9 @@ export function DonorDirectory() {
       availableNow: false,
       availableToday: false,
     });
+    if (typeof window !== "undefined" && window.location.search) {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
   };
 
   // Filtered & Sorted Donors list
