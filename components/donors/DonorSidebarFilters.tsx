@@ -30,11 +30,11 @@ const BLOOD_GROUPS = [
 ];
 
 const DISTANCES = [
+  "Any distance",
   "Within 5 km",
   "Within 10 km",
   "Within 25 km",
   "Within 50 km",
-  "Any distance",
 ];
 
 export function DonorSidebarFilters({

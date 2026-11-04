@@ -16,16 +16,25 @@ export interface DonorItem {
   name: string;
   initials: string;
   bloodGroup: string;
-  locality: string;
+  locality?: string;
   city: string;
+  state?: string;
+  pincode?: string;
   distance: string;
   status: "Available" | "Unavailable" | "Cooldown";
   confirmedAgo: string;
   smartMatchTag: string;
   phone?: string | null;
+  rawPhone?: string | null;
   email?: string | null;
   age?: number | null;
   gender?: string | null;
+  weight_kg?: number | null;
+  has_disease?: boolean | null;
+  last_donation_date?: string | null;
+  role?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
 }
 
 interface DonorCardProps {
@@ -39,28 +48,38 @@ export function DonorCard({
   onViewProfile,
   onContactWhatsApp,
 }: DonorCardProps) {
+  const isAvailable = donor.status === "Available";
+  const isCooldown = donor.status === "Cooldown";
+
   return (
-    <div className="bg-white rounded-2xl border border-gray-100/90 shadow-2xs p-5 sm:p-6 transition-all duration-150 hover:border-gray-200 hover:shadow-xs flex flex-col justify-between">
+    <div className="bg-white rounded-2xl border border-gray-100 shadow-2xs p-5 sm:p-6 transition-all duration-150 hover:border-gray-200 hover:shadow-xs flex flex-col justify-between">
       <div>
         {/* Top Header: Avatar + Name + Blood Group */}
         <div className="flex items-start justify-between gap-3 mb-3.5">
           {/* Avatar and Name/Location */}
-          <div className="flex items-center gap-3">
-            {/* Peach / Pink Avatar circle with burgundy initials */}
+          <div className="flex items-center gap-3 min-w-0">
+            {/* Avatar */}
             <div className="flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full bg-red-100 text-red-800 font-bold text-sm tracking-wide">
               {donor.initials}
             </div>
 
-            <div>
-              {/* Name + Blue Verified checkmark */}
-              <div className="flex items-center gap-1.5">
+            <div className="min-w-0">
+              {/* Name + Verified checkmark + Role badge */}
+              <div className="flex items-center gap-1.5 flex-wrap">
                 <h3 className="font-bold text-gray-900 text-base leading-tight">
                   {donor.name}
                 </h3>
+
                 <CheckCircle2
                   className="w-4 h-4 text-blue-600 fill-blue-50 shrink-0"
                   aria-label="Verified Donor"
                 />
+
+                {donor.role?.toLowerCase() === "both" && (
+                  <span className="inline-flex items-center text-[10px] font-semibold bg-red-50 text-red-700 border border-red-200 rounded-md px-1.5 py-0.5">
+                    Donor & Requester
+                  </span>
+                )}
               </div>
 
               {/* Locality & City */}
@@ -74,7 +93,7 @@ export function DonorCard({
             </div>
           </div>
 
-          {/* Blood Group Badge: light peach pill with red text */}
+          {/* Blood Group Badge */}
           <span className="shrink-0 rounded-xl bg-red-50 border border-red-100 px-3.5 py-1 text-sm sm:text-base font-bold text-red-700">
             {donor.bloodGroup}
           </span>
@@ -83,8 +102,10 @@ export function DonorCard({
         {/* Smart Match Banner */}
         <div className="flex items-center gap-1.5 rounded-xl bg-amber-50 border border-amber-100 px-3 py-1.5 my-3.5">
           <Sparkles className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-          <span className="font-bold text-xs text-amber-900">Smart Match</span>
-          <span className="text-xs text-amber-800/80 font-medium">
+          <span className="font-bold text-xs text-amber-900">
+            Smart Match
+          </span>
+          <span className="text-xs text-amber-800/80 font-medium truncate">
             {donor.smartMatchTag}
           </span>
         </div>
@@ -98,17 +119,37 @@ export function DonorCard({
               <p className="font-bold text-sm text-gray-900 leading-tight">
                 {donor.distance}
               </p>
-              <p className="text-[11px] text-gray-400 mt-0.5">Approx. distance</p>
+              <p className="text-[11px] text-gray-400 mt-0.5">
+                Approx. distance
+              </p>
             </div>
           </div>
 
           {/* Availability */}
           <div className="flex items-start gap-2.5">
-            <Activity className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+            <Activity
+              className={`w-4 h-4 shrink-0 mt-0.5 ${
+                isAvailable
+                  ? "text-red-600"
+                  : isCooldown
+                    ? "text-amber-600"
+                    : "text-gray-400"
+              }`}
+            />
+
             <div>
-              <p className="font-bold text-sm text-gray-900 leading-tight">
+              <p
+                className={`font-bold text-sm leading-tight ${
+                  isAvailable
+                    ? "text-gray-900"
+                    : isCooldown
+                      ? "text-amber-800"
+                      : "text-gray-500"
+                }`}
+              >
                 {donor.status}
               </p>
+
               <p className="text-[11px] text-gray-400 mt-0.5">
                 {donor.confirmedAgo}
               </p>
@@ -123,7 +164,7 @@ export function DonorCard({
         </div>
       </div>
 
-      {/* Actions Row: Green WhatsApp button + View profile */}
+      {/* Actions Row */}
       <div className="flex items-center gap-3 pt-1">
         <button
           type="button"
@@ -145,6 +186,3 @@ export function DonorCard({
     </div>
   );
 }
-
-export default DonorCard;
-
