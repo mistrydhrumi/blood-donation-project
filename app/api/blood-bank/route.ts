@@ -36,6 +36,7 @@ function distanceInKm(origin: Coordinates, destination: Coordinates): number {
   return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(Math.max(0, 1 - a)));
 }
 
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 export async function POST(request: NextRequest) {
   try {
     const body: unknown = await request.json();
@@ -47,9 +48,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const token = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
-
-    if (!token) {
+    if (!MAPBOX_TOKEN) {
       return NextResponse.json(
         { error: "Mapbox access token is not configured." },
         { status: 500 },
@@ -63,7 +62,9 @@ export async function POST(request: NextRequest) {
 
     // Search Box forward search supports POI text queries.
     const search = async (query: string) => {
-      const url = new URL("https://api.mapbox.com/search/searchbox/v1/forward");
+      const url = new URL(
+        `${process.env.NEXT_PUBLIC_MAPBOX_SEARCH_API}forward`,
+      );
 
       url.searchParams.set("q", query);
       url.searchParams.set(
@@ -74,7 +75,7 @@ export async function POST(request: NextRequest) {
       url.searchParams.set("language", "en");
       url.searchParams.set("types", "poi");
       url.searchParams.set("limit", "10");
-      url.searchParams.set("access_token", token);
+      url.searchParams.set("access_token", MAPBOX_TOKEN);
 
       const response = await fetch(url.toString(), {
         cache: "no-store",
@@ -140,7 +141,7 @@ export async function POST(request: NextRequest) {
             distanceInKm(origin, { latitude, longitude }).toFixed(2),
           ),
           mapsUrl:
-            `https://www.google.com/maps/search/?api=1&query=` +
+            `${process.env.NEXT_PUBLIC_MAP_SEARCH_API}?api=1&query=` +
             encodeURIComponent(`${latitude},${longitude}`),
         };
       })
@@ -155,6 +156,60 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { error: "Unable to search nearby places. Please try again." },
       { status: 502 },
+    );
+  }
+}
+
+export async function GET() {
+  try {
+    if (!MAPBOX_TOKEN) {
+      return NextResponse.json(
+        { message: "Mapbox token is missing" },
+        { status: 500 },
+      );
+    }
+
+    const url = new URL(`${process.env.NEXT_PUBLIC_MAPBOX_SEARCH_API}forward`);
+
+    url.searchParams.set("q", "blood bank in Ahmedabad");
+    url.searchParams.set("access_token", MAPBOX_TOKEN);
+    url.searchParams.set("country", "IN");
+    url.searchParams.set("types", "poi");
+    url.searchParams.set("limit", "10");
+    url.searchParams.set("language", "en");
+    url.searchParams.set("proximity", "72.5714,23.0225");
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("Mapbox search failed");
+    }
+
+    const data = await response.json();
+
+    const results = (data.features ?? []).map((item: any) => ({
+      id: item.properties.mapbox_id,
+      name: item.properties.name,
+      address: item.properties.full_address,
+      longitude: item.geometry.coordinates[0],
+      latitude: item.geometry.coordinates[1],
+      type: "Blood Bank",
+      mapsUrl: `${process.env.NEXT_PUBLIC_MAP_SEARCH_API}?api=1&query=${encodeURIComponent(
+        item.properties.name,
+      )}`,
+    }));
+
+    return NextResponse.json({
+      success: true,
+      count: results.length,
+      results,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { success: false, message: "Unable to fetch blood banks" },
+      { status: 500 },
     );
   }
 }

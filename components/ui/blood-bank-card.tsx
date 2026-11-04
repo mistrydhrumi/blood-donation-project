@@ -24,7 +24,7 @@ export default function BloodBankCard({
 }: BloodBankListProps) {
   return (
     <div
-      className={`p-2 border  cursor-pointer border-gray-300   flex flex-col md:flex-row gap-4 rounded-lg ${checked ? " border border-red-400" : ""}`}
+      className={`p-2 cursor-pointer border border-gray-300 flex flex-col md:flex-row gap-4  rounded-lg ${checked ? " border border-red-400" : ""}`}
       onClick={onSelect}
     >
       <div className="flex items-center gap-4 flex-1">
@@ -38,10 +38,12 @@ export default function BloodBankCard({
           <p className="text-[10px] font-medium text-gray-400">
             {blood_bank?.address}
           </p>
-          <div className="flex items-center gap-1 font-semibold py-0.5 mt-1 px-1 rounded-sm border border-gray-300  w-fit">
-            <MapPin size={10} />
-            <p className="text-[9px]">{blood_bank?.distanceKm} KM</p>
-          </div>
+          {blood_bank.distanceKm && (
+            <div className="flex items-center gap-1 font-semibold py-0.5 mt-1 px-1 rounded-sm border border-gray-300  w-fit">
+              <MapPin size={10} />
+              <p className="text-[9px]">{blood_bank?.distanceKm} KM</p>
+            </div>
+          )}
         </div>
       </div>
       <div className="self-end md:self-start">

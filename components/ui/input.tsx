@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export interface InputProps
-  extends React.ComponentProps<"input"> {
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   prefixElement?: React.ReactNode;
   suffixElement?: React.ReactNode;
@@ -23,7 +23,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {prefixElement && <div className="flex items-center h-full shrink-0">{prefixElement}</div>}
           <input
             type={type}
-            data-slot="input"
             className={cn(
               "w-full h-full px-3.5 text-sm md:text-base text-gray-900 placeholder:text-gray-400 bg-transparent outline-none disabled:cursor-not-allowed disabled:opacity-50",
               className
