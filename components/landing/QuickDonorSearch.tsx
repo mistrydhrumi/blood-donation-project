@@ -9,36 +9,53 @@ import {
   ChevronDown,
   ArrowRight,
   Check,
+  Loader2,
 } from "lucide-react";
+import { fetchDistinctDonorCities } from "@/services/donors.service";
 
 export interface QuickDonorSearchProps {
   onSearch?: (bloodGroup: string, city: string) => void;
 }
 
 const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
-const CITIES = [
-  "Ahmedabad",
-  "Surat",
-  "Vadodara",
-  "Rajkot",
-  "Mumbai",
-  "Delhi",
-  "Bengaluru",
-  "Pune",
-  "Hyderabad",
-  "Chennai",
-  "Kolkata",
-];
 
 export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
   const [selectedBloodGroup, setSelectedBloodGroup] = useState("O+");
-  const [selectedCity, setSelectedCity] = useState("Ahmedabad");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [cities, setCities] = useState<string[]>([]);
+  const [isLoadingCities, setIsLoadingCities] = useState(true);
   const [bloodGroupOpen, setBloodGroupOpen] = useState(false);
   const [cityOpen, setCityOpen] = useState(false);
   const [citySearchQuery, setCitySearchQuery] = useState("");
 
   const bloodGroupRef = useRef<HTMLDivElement>(null);
   const cityRef = useRef<HTMLDivElement>(null);
+
+  // Dynamically fetch available donor cities from Supabase profiles
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCities() {
+      setIsLoadingCities(true);
+      const { cities: fetchedCities, error } = await fetchDistinctDonorCities();
+
+      if (!isMounted) return;
+
+      if (!error && fetchedCities.length > 0) {
+        setCities(fetchedCities);
+        setSelectedCity((prev) => (prev ? prev : fetchedCities[0]));
+      } else {
+        setCities([]);
+      }
+      setIsLoadingCities(false);
+    }
+
+    loadCities();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Close dropdowns on click outside
   useEffect(() => {
@@ -70,15 +87,18 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
     if (onSearch) {
       onSearch(selectedBloodGroup, selectedCity);
     } else {
-      router.push(
-        `/signup?intent=search&bloodGroup=${encodeURIComponent(
-          selectedBloodGroup
-        )}&city=${encodeURIComponent(selectedCity)}`
-      );
+      const params = new URLSearchParams();
+      if (selectedBloodGroup) {
+        params.set("bloodGroup", selectedBloodGroup);
+      }
+      if (selectedCity && selectedCity.trim()) {
+        params.set("city", selectedCity.trim());
+      }
+      router.push(`/donors?${params.toString()}`);
     }
   };
 
-  const filteredCities = CITIES.filter((city) =>
+  const filteredCities = cities.filter((city) =>
     city.toLowerCase().includes(citySearchQuery.toLowerCase())
   );
 
@@ -129,8 +149,9 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                   </span>
                 </div>
                 <ChevronDown
-                  className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${bloodGroupOpen ? "rotate-180 text-gray-600" : ""
-                    }`}
+                  className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${
+                    bloodGroupOpen ? "rotate-180 text-gray-600" : ""
+                  }`}
                 />
               </button>
 
@@ -147,10 +168,11 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                           setSelectedBloodGroup(group);
                           setBloodGroupOpen(false);
                         }}
-                        className={`flex h-10 items-center justify-center rounded-lg text-sm font-bold transition-colors cursor-pointer ${isSelected
-                          ? "bg-red-700 text-white shadow-xs"
-                          : "text-gray-700 hover:bg-red-50 hover:text-red-800"
-                          }`}
+                        className={`flex h-10 items-center justify-center rounded-lg text-sm font-bold transition-colors cursor-pointer ${
+                          isSelected
+                            ? "bg-red-700 text-white shadow-xs"
+                            : "text-gray-700 hover:bg-red-50 hover:text-red-800"
+                        }`}
                       >
                         {group}
                       </button>
@@ -160,7 +182,7 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
               )}
             </div>
 
-            {/* City Selector */}
+            {/* City Selector (Dynamic from Supabase profiles) */}
             <div className="relative" ref={cityRef}>
               <label className="block text-xs font-semibold text-gray-400 tracking-wider mb-1.5 uppercase">
                 City
@@ -169,22 +191,32 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
               <button
                 type="button"
                 onClick={() => {
-                  setCityOpen((prev) => !prev);
-                  setBloodGroupOpen(false);
+                  if (!isLoadingCities) {
+                    setCityOpen((prev) => !prev);
+                    setBloodGroupOpen(false);
+                  }
                 }}
-                className="flex h-12 w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-3.5 text-sm font-semibold text-gray-900 shadow-2xs transition-all hover:border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none cursor-pointer"
+                disabled={isLoadingCities}
+                className="flex h-12 w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-3.5 text-sm font-semibold text-gray-900 shadow-2xs transition-all hover:border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                 aria-haspopup="listbox"
                 aria-expanded={cityOpen}
               >
-                <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-gray-400" />
-                  <span className="text-sm font-medium text-gray-800">
-                    {selectedCity}
+                <div className="flex items-center gap-2 min-w-0">
+                  {isLoadingCities ? (
+                    <Loader2 className="h-4 w-4 text-red-600 animate-spin shrink-0" />
+                  ) : (
+                    <MapPin className="h-4 w-4 text-gray-400 shrink-0" />
+                  )}
+                  <span className="text-sm font-medium text-gray-800 truncate">
+                    {isLoadingCities
+                      ? "Loading cities..."
+                      : selectedCity || "Select city"}
                   </span>
                 </div>
                 <ChevronDown
-                  className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${cityOpen ? "rotate-180 text-gray-600" : ""
-                    }`}
+                  className={`h-4 w-4 text-gray-400 shrink-0 transition-transform duration-200 ${
+                    cityOpen ? "rotate-180 text-gray-600" : ""
+                  }`}
                 />
               </button>
 
@@ -200,9 +232,13 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                     autoFocus
                   />
                   <div className="max-h-48 overflow-y-auto flex flex-col gap-0.5">
-                    {filteredCities.length > 0 ? (
+                    {cities.length === 0 ? (
+                      <div className="px-3 py-2 text-xs text-gray-400 text-center">
+                        No donor cities available
+                      </div>
+                    ) : filteredCities.length > 0 ? (
                       filteredCities.map((city) => {
-                        const isSelected = selectedCity === city;
+                        const isSelected = selectedCity.toLowerCase() === city.toLowerCase();
                         return (
                           <button
                             key={city}
@@ -212,10 +248,11 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                               setCityOpen(false);
                               setCitySearchQuery("");
                             }}
-                            className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-left transition-colors cursor-pointer ${isSelected
-                              ? "bg-red-50 text-red-700 font-semibold"
-                              : "text-gray-700 hover:bg-gray-50"
-                              }`}
+                            className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-left transition-colors cursor-pointer ${
+                              isSelected
+                                ? "bg-red-50 text-red-700 font-semibold"
+                                : "text-gray-700 hover:bg-gray-50"
+                            }`}
                           >
                             <span>{city}</span>
                             {isSelected && (
@@ -226,7 +263,7 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
                       })
                     ) : (
                       <div className="px-3 py-2 text-xs text-gray-400 text-center">
-                        No city found
+                        No matching city found
                       </div>
                     )}
                   </div>
@@ -239,7 +276,8 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
           <div className="pt-1 sm:pt-0 shrink-0 lg:self-end">
             <button
               type="submit"
-              className="flex h-12 w-full lg:w-auto items-center justify-center gap-2 rounded-xl bg-red-700 px-6 text-sm font-semibold text-white shadow-sm transition-all hover:bg-red-800 hover:shadow active:scale-95 cursor-pointer"
+              disabled={isLoadingCities}
+              className="flex h-12 w-full lg:w-auto items-center justify-center gap-2 rounded-xl bg-red-700 px-6 text-sm font-semibold text-white shadow-xs transition-all hover:bg-red-800 hover:shadow-md active:scale-95 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
               <span>Search donors</span>
               <ArrowRight className="h-4 w-4" />
