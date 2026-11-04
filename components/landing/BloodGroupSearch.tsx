@@ -1,26 +1,39 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { fetchBloodGroupDonorCounts } from "@/services/donors.service";
 
-export interface BloodGroupItem {
-  group: string;
-  count: number;
-}
-
-const BLOOD_GROUPS_DATA: BloodGroupItem[] = [
-  { group: "A+", count: 184 },
-  { group: "A-", count: 42 },
-  { group: "B+", count: 136 },
-  { group: "B-", count: 38 },
-  { group: "O+", count: 312 },
-  { group: "O-", count: 56 },
-  { group: "AB+", count: 28 },
-  { group: "AB-", count: 19 },
-];
+const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
 
 export function BloodGroupSearch() {
+  const [counts, setCounts] = useState<Record<string, number>>({});
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCounts() {
+      setIsLoading(true);
+      const { counts: fetchedCounts, error } =
+        await fetchBloodGroupDonorCounts();
+
+      if (!isMounted) return;
+
+      if (!error && fetchedCounts) {
+        setCounts(fetchedCounts);
+      }
+      setIsLoading(false);
+    }
+
+    loadCounts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 sm:mb-24 w-full">
       {/* Header Row */}
@@ -35,7 +48,7 @@ export function BloodGroupSearch() {
         </div>
 
         <Link
-          href="/signup?intent=view_all_donors"
+          href="/donors"
           className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-red-700 hover:text-red-800 transition-colors self-start sm:self-end group"
         >
           <span>View all donors</span>
@@ -45,26 +58,33 @@ export function BloodGroupSearch() {
 
       {/* 8-Card Blood Group Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
-        {BLOOD_GROUPS_DATA.map((item) => (
-          <Link
-            key={item.group}
-            href={`/signup?intent=search&bloodGroup=${encodeURIComponent(item.group)}`}
-            className="group relative flex flex-col justify-between rounded-2xl border border-gray-200/90 bg-white p-4 sm:p-4.5 transition-all duration-200 hover:border-red-600 hover:shadow-md cursor-pointer select-none"
-          >
-            {/* Top row: Blood Group Letter & Arrow Icon */}
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-red-700 transition-colors">
-                {item.group}
-              </span>
-              <ArrowRight className="h-4 w-4 text-gray-300 transition-all duration-200 group-hover:text-red-700 group-hover:translate-x-0.5" />
-            </div>
+        {BLOOD_GROUPS.map((group) => {
+          const count = counts[group] ?? 0;
+          return (
+            <Link
+              key={group}
+              href={`/donors?bloodGroup=${encodeURIComponent(group)}`}
+              className="group relative flex flex-col justify-between rounded-2xl border border-gray-200/90 bg-white p-4 sm:p-4.5 transition-all duration-200 hover:border-red-600 hover:shadow-md cursor-pointer select-none"
+            >
+              {/* Top row: Blood Group Letter & Arrow Icon */}
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xl sm:text-2xl font-bold text-gray-900 group-hover:text-red-700 transition-colors">
+                  {group}
+                </span>
+                <ArrowRight className="h-4 w-4 text-gray-300 transition-all duration-200 group-hover:text-red-700 group-hover:translate-x-0.5" />
+              </div>
 
-            {/* Bottom: Available Donors Count */}
-            <span className="text-xs text-gray-400 font-normal group-hover:text-gray-500 transition-colors">
-              {item.count} available
-            </span>
-          </Link>
-        ))}
+              {/* Bottom: Available Donors Count dynamically loaded from Supabase */}
+              <span className="text-xs text-gray-400 font-normal group-hover:text-gray-500 transition-colors">
+                {isLoading ? (
+                  <span className="inline-block h-3.5 w-14 bg-gray-100 rounded animate-pulse" />
+                ) : (
+                  `${count} available`
+                )}
+              </span>
+            </Link>
+          );
+        })}
       </div>
     </section>
   );

@@ -47,7 +47,7 @@ export function HeroSection() {
             {/* CTA Buttons */}
             <div className="flex flex-wrap items-center gap-3.5 sm:gap-4 mb-8 sm:mb-10 w-full sm:w-auto">
               <Link
-                href="/signup"
+                href="/donors"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-red-700 px-7 py-3.5 text-base font-semibold text-white shadow-sm transition-all hover:bg-red-800 hover:shadow-md active:scale-95 w-full sm:w-auto"
               >
                 <span>Find blood</span>
