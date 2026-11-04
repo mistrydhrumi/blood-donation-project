@@ -5,11 +5,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { Menu, X, Droplets } from "lucide-react";
 
-interface NavbarProps {
-  activePath?: string;
-}
-
-export default function Header({ activePath = "/" }: NavbarProps) {
+export default function Header() {
   const router = useRouter();
   const pathName = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -129,7 +125,7 @@ export default function Header({ activePath = "/" }: NavbarProps) {
           <div className="md:hidden border-b border-gray-100 bg-white px-4 pt-3 pb-6 shadow-lg animate-in fade-in slide-in-from-top-2 duration-200">
             <nav className="flex flex-col gap-2.5 pb-4 border-b border-gray-100">
               {navLinks.map((link) => {
-                const isActive = link.href === activePath;
+                const isActive = link.href === pathName;
                 return (
                   <Link
                     key={link.label}

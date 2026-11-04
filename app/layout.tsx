@@ -19,8 +19,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className="h-full antialiased font-sans">
       <body className="min-h-full flex flex-col bg-white">
-        <Suspense fallback={<div className="h-18 sm:h-20 w-full" />}>
-          <Header activePath="/" />
+        <Suspense fallback={null}>
+          <Header />
         </Suspense>
         {children}
         <Footer />
