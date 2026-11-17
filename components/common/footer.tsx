@@ -5,8 +5,8 @@ import { ShieldCheck, Droplets } from "lucide-react";
 export function Footer() {
   const exploreLinks = [
     { label: "Find donors", href: "/donors" },
-    { label: "Emergency requests", href: "/requests" },
     { label: "Blood banks", href: "/blood-banks" },
+    { label: "Emergency requests", href: "/emergency-requests" },
   ];
 
   const companyLinks = [

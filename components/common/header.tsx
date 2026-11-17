@@ -24,8 +24,8 @@ export default function Header() {
   const navLinks = [
     { label: "Home", href: "/" },
     { label: "Find Donors", href: "/donors" },
-    { label: "Emergency Requests", href: "/requests" },
     { label: "Blood Banks", href: "/blood-banks" },
+    { label: "Emergency Requests", href: "/emergency-requests" },
     { label: "About us", href: "/about" },
   ];
 

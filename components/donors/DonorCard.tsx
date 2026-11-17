@@ -76,7 +76,7 @@ export function DonorCard({
                 />
 
                 {donor.role?.toLowerCase() === "both" && (
-                  <span className="inline-flex items-center text-[10px] font-semibold bg-red-50 text-red-700 border border-red-200 rounded-md px-1.5 py-0.5">
+                  <span className="inline-flex items-center text-xs font-semibold bg-red-50 text-red-700 border border-red-200 rounded-md px-1.5 py-0.5">
                     Donor & Requester
                   </span>
                 )}
@@ -119,7 +119,7 @@ export function DonorCard({
               <p className="font-bold text-sm text-gray-900 leading-tight">
                 {donor.distance}
               </p>
-              <p className="text-[11px] text-gray-400 mt-0.5">
+              <p className="text-xs text-gray-400 mt-0.5">
                 Approx. distance
               </p>
             </div>
@@ -150,7 +150,7 @@ export function DonorCard({
                 {donor.status}
               </p>
 
-              <p className="text-[11px] text-gray-400 mt-0.5">
+              <p className="text-xs text-gray-400 mt-0.5">
                 {donor.confirmedAgo}
               </p>
             </div>
@@ -158,7 +158,7 @@ export function DonorCard({
         </div>
 
         {/* Privacy Notice Pill */}
-        <div className="flex items-center gap-1.5 rounded-xl bg-gray-50/80 border border-gray-100 px-3 py-2 text-[11px] text-gray-400 my-4">
+        <div className="flex items-center gap-1.5 rounded-xl bg-gray-50/80 border border-gray-100 px-3 py-2 text-xs text-gray-400 my-4">
           <Lock className="w-3 h-3 text-gray-400 shrink-0" />
           <span>Exact location and phone number stay private.</span>
         </div>

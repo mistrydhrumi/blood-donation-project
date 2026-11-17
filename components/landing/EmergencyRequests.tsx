@@ -103,7 +103,7 @@ export function EmergencyRequests() {
         </div>
 
         <Link
-          href="/signup?intent=view_all_requests"
+          href="/emergency-requests"
           className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-red-700 hover:text-red-800 transition-colors self-start sm:self-end group"
         >
           <span>View all requests</span>
@@ -181,7 +181,7 @@ export function EmergencyRequests() {
             {/* Bottom Actions Row */}
             <div className="flex items-center gap-2.5 pt-3">
               <Link
-                href={`/signup?intent=request_details&id=${encodeURIComponent(request.id)}`}
+                href={`/emergency-requests?code=${encodeURIComponent(request.code)}`}
                 className="flex-1 flex h-12 items-center justify-center rounded-xl bg-red-700 text-sm font-semibold text-white shadow-xs transition-all hover:bg-red-800 hover:shadow active:scale-95"
               >
                 View details
