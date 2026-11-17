@@ -71,7 +71,7 @@ export function QuickDonorSearch({ onSearch }: QuickDonorSearchProps) {
       onSearch(selectedBloodGroup, selectedCity);
     } else {
       router.push(
-        `/signup?intent=search&bloodGroup=${encodeURIComponent(
+        `/donors?bloodGroup=${encodeURIComponent(
           selectedBloodGroup
         )}&city=${encodeURIComponent(selectedCity)}`
       );

@@ -79,22 +79,22 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
     switch (urgencyType) {
       case "immediate":
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FEE9EB] text-[#C72C36] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[11px] font-bold tracking-wider uppercase">
-            <AlertCircle className="h-3.5 w-3.5 shrink-0 text-[#C72C36]" />
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 text-red-700 px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs font-bold tracking-wider uppercase">
+            <AlertCircle className="h-3.5 w-3.5 shrink-0 text-red-700" />
             <span>{label}</span>
           </span>
         );
       case "within_12_hours":
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FFF0DC] text-[#A75E12] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[11px] font-bold tracking-wider uppercase">
-            <Clock className="h-3.5 w-3.5 shrink-0 text-[#A75E12]" />
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 text-amber-700 px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs font-bold tracking-wider uppercase">
+            <Clock className="h-3.5 w-3.5 shrink-0 text-amber-700" />
             <span>{label}</span>
           </span>
         );
       case "within_24_hours":
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FEF3C7] text-[#B45309] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[11px] font-bold tracking-wider uppercase">
-            <Clock className="h-3.5 w-3.5 shrink-0 text-[#B45309]" />
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-100/70 text-amber-800 px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs font-bold tracking-wider uppercase">
+            <Clock className="h-3.5 w-3.5 shrink-0 text-amber-800" />
             <span>{label}</span>
           </span>
         );
@@ -103,37 +103,37 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
 
   return (
     <div className="w-full bg-white">
-      {/* 1. Header Section matching Image 1 */}
-      <section className="w-full bg-[#FFF8F7] border-b border-[#F7EBEA] py-10 sm:py-12 md:py-14">
+      {/* 1. Header Section */}
+      <section className="w-full bg-red-50/50 border-b border-red-100/70 py-10 sm:py-12 md:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back Button */}
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-[#C72C36] mb-4 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-red-700 mb-4 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to all emergency requests</span>
           </button>
 
           {/* Eyebrow Label */}
-          <span className="block text-xs font-bold tracking-[0.08em] uppercase text-[#C72C36] mb-2 sm:mb-2.5">
+          <span className="block text-xs font-bold tracking-wider uppercase text-red-700 mb-2 sm:mb-2.5">
             REQUEST {request.code}
           </span>
 
           {/* Main Headline */}
-          <h1 className="text-3xl sm:text-4xl lg:text-[40px] font-semibold text-[#172033] tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-4xl font-semibold text-gray-900 tracking-tight leading-tight">
             {request.bloodGroup} blood needed urgently
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-2 text-sm sm:text-base text-[#647085] font-normal leading-relaxed">
+          <p className="mt-2 text-sm sm:text-base text-gray-500 font-normal leading-relaxed">
             {request.hospital}, {request.city}
           </p>
         </div>
       </section>
 
-      {/* 2. Main Content Grid matching Image 1 and Image 2 */}
+      {/* 2. Main Content Grid */}
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Left Column: Request Summary Card */}
@@ -149,7 +149,7 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
 
               {/* Blood Group Badge & Hospital Info */}
               <div className="flex items-center gap-4 mb-5">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#FFF1F2] text-xl font-bold text-[#C72C36]">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-red-50 text-xl font-bold text-red-700">
                   {request.bloodGroup}
                 </div>
 
@@ -169,7 +169,7 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
                 <div className="flex items-center gap-2.5 border-r border-gray-100 pr-2">
                   <Droplets className="h-4 w-4 text-gray-400 shrink-0" />
                   <div>
-                    <span className="text-[11px] text-gray-400 font-normal block leading-tight">
+                    <span className="text-xs text-gray-400 font-normal block leading-tight">
                       Units needed
                     </span>
                     <span className="text-xs sm:text-sm font-bold text-gray-900 block leading-tight mt-0.5">
@@ -181,7 +181,7 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
                 <div className="flex items-center gap-2.5 pl-1 sm:pl-2">
                   <Clock className="h-4 w-4 text-gray-400 shrink-0" />
                   <div>
-                    <span className="text-[11px] text-gray-400 font-normal block leading-tight">
+                    <span className="text-xs text-gray-400 font-normal block leading-tight">
                       Required by
                     </span>
                     <span className="text-xs sm:text-sm font-bold text-gray-900 block leading-tight mt-0.5">
@@ -195,7 +195,7 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
               <div className="flex items-center gap-2.5 pt-3">
                 <button
                   type="button"
-                  className="flex-1 h-12 rounded-xl bg-[#C72C36] text-sm font-semibold text-white shadow-xs hover:bg-[#B2242D] transition-colors flex items-center justify-center select-none"
+                  className="flex-1 h-12 rounded-xl bg-red-700 text-sm font-semibold text-white shadow-xs hover:bg-red-800 transition-colors flex items-center justify-center select-none"
                 >
                   View details
                 </button>
@@ -213,12 +213,12 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
             </div>
           </div>
 
-          {/* Right Column: "Share this request" Card matching Image 1 & 2 */}
+          {/* Right Column: "Share this request" Card */}
           <div className="lg:col-span-7 xl:col-span-8">
             <div className="rounded-2xl sm:rounded-3xl border border-gray-200/90 bg-white p-5 sm:p-6 lg:p-7 shadow-xs">
               {/* Header Row: Icon + Title + AI subtitle */}
               <div className="flex items-start gap-3.5 mb-5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#FFF1F2] text-[#C72C36]">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-700">
                   <Languages className="w-5 h-5" />
                 </div>
                 <div>
@@ -238,7 +238,7 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
                   onClick={() => setSelectedLanguage("en")}
                   className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors cursor-pointer ${
                     selectedLanguage === "en"
-                      ? "bg-[#172033] text-white"
+                      ? "bg-slate-900 text-white"
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                   }`}
                 >
@@ -250,7 +250,7 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
                   onClick={() => setSelectedLanguage("hi")}
                   className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors cursor-pointer ${
                     selectedLanguage === "hi"
-                      ? "bg-[#172033] text-white"
+                      ? "bg-slate-900 text-white"
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                   }`}
                 >
@@ -262,7 +262,7 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
                   onClick={() => setSelectedLanguage("gu")}
                   className={`px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-colors cursor-pointer ${
                     selectedLanguage === "gu"
-                      ? "bg-[#172033] text-white"
+                      ? "bg-slate-900 text-white"
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                   }`}
                 >
@@ -271,7 +271,7 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
               </div>
 
               {/* Message Box */}
-              <div className="border border-gray-200 rounded-2xl bg-white p-4 sm:p-5 mb-5 min-h-[140px] flex items-center">
+              <div className="border border-gray-200 rounded-2xl bg-white p-4 sm:p-5 mb-5 min-h-36 flex items-center">
                 <p className="text-sm sm:text-base text-gray-800 leading-relaxed font-normal select-text">
                   {currentMessage}
                 </p>
@@ -298,12 +298,12 @@ export function RequestDetailView({ request, onBack }: RequestDetailViewProps) {
                   )}
                 </button>
 
-                {/* Share on WhatsApp Button (in exact green #159447) */}
+                {/* Share on WhatsApp Button */}
                 <a
                   href={whatsAppUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-xl bg-[#159447] hover:bg-[#127e3d] text-white text-sm font-semibold shadow-xs active:scale-95 transition-all select-none cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 h-11 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold shadow-xs active:scale-95 transition-all select-none cursor-pointer"
                 >
                   {/* WhatsApp SVG Icon */}
                   <svg

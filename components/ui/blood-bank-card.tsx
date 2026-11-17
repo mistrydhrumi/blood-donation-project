@@ -35,13 +35,13 @@ export default function BloodBankCard({
         />
         <div className="flex flex-col flex-1">
           <p className="font-semibold text-sm">{blood_bank?.name}</p>
-          <p className="text-[10px] font-medium text-gray-400">
+          <p className="text-xs font-medium text-gray-400">
             {blood_bank?.address}
           </p>
           {blood_bank.distanceKm && (
             <div className="flex items-center gap-1 font-semibold py-0.5 mt-1 px-1 rounded-sm border border-gray-300  w-fit">
               <MapPin size={10} />
-              <p className="text-[9px]">{blood_bank?.distanceKm} KM</p>
+              <p className="text-xs">{blood_bank?.distanceKm} KM</p>
             </div>
           )}
         </div>
@@ -52,7 +52,7 @@ export default function BloodBankCard({
           target="_blank"
           className="flex items-center gap-1"
         >
-          <span className="text-[10px] font-semibold text-blue-600">
+          <span className="text-xs font-semibold text-blue-600">
             Open in Google map
           </span>
           <SquareArrowOutUpRight size={12} className="text-blue-600" />

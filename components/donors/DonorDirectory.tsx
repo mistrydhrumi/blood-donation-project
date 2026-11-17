@@ -143,7 +143,7 @@ export function DonorDirectory() {
   const activeCityLabel = filters.city.trim() || "Ahmedabad";
 
   return (
-    <div className="w-full bg-gray-50 min-h-[calc(100vh-280px)] py-8 sm:py-10">
+    <div className="w-full bg-gray-50 min-h-screen py-8 sm:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
           {/* 1. Left Sidebar Filters matching Image 2 */}

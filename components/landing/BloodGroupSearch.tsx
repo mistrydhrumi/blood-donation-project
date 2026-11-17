@@ -35,7 +35,7 @@ export function BloodGroupSearch() {
         </div>
 
         <Link
-          href="/signup?intent=view_all_donors"
+          href="/donors"
           className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-red-700 hover:text-red-800 transition-colors self-start sm:self-end group"
         >
           <span>View all donors</span>
@@ -48,7 +48,7 @@ export function BloodGroupSearch() {
         {BLOOD_GROUPS_DATA.map((item) => (
           <Link
             key={item.group}
-            href={`/signup?intent=search&bloodGroup=${encodeURIComponent(item.group)}`}
+            href={`/donors?bloodGroup=${encodeURIComponent(item.group)}`}
             className="group relative flex flex-col justify-between rounded-2xl border border-gray-200/90 bg-white p-4 sm:p-4.5 transition-all duration-200 hover:border-red-600 hover:shadow-md cursor-pointer select-none"
           >
             {/* Top row: Blood Group Letter & Arrow Icon */}

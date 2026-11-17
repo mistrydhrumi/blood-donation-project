@@ -18,9 +18,9 @@ export default function FindDonorsPage() {
       {/* 2. Interactive Directory with Sidebar Filters & Donor Cards */}
       <Suspense
         fallback={
-          <div className="w-full bg-gray-50 min-h-[500px] flex items-center justify-center">
+          <div className="w-full bg-gray-50 min-h-96 flex items-center justify-center">
             <div className="flex items-center gap-2.5 text-gray-500 text-sm font-medium">
-              <span className="h-5 w-5 border-2 border-[#C72C36] border-t-transparent rounded-full animate-spin" />
+              <span className="h-5 w-5 border-2 border-red-700 border-t-transparent rounded-full animate-spin" />
               <span>Loading donors directory...</span>
             </div>
           </div>
