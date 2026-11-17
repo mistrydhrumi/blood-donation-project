@@ -63,7 +63,7 @@ export function DonorProfileSheet({
                   </h4>
                   <CheckCircle2 className="w-4 h-4 text-blue-600 fill-blue-50 shrink-0" />
                   {donor.role?.toLowerCase() === "both" && (
-                    <span className="inline-flex items-center text-[11px] font-semibold bg-red-50 text-red-700 border border-red-200 rounded-md px-2 py-0.5">
+                    <span className="inline-flex items-center text-xs font-semibold bg-red-50 text-red-700 border border-red-200 rounded-md px-2 py-0.5">
                       Donor & Requester
                     </span>
                   )}

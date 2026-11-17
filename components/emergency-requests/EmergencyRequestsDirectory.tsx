@@ -145,8 +145,12 @@ export function EmergencyRequestsDirectory({
         return false;
       }
       if (appliedFilters.city) {
-        const matchesCity = req.city.toLowerCase().includes(appliedFilters.city);
-        const matchesHospital = req.hospital.toLowerCase().includes(appliedFilters.city);
+        const matchesCity = req.city
+          .toLowerCase()
+          .includes(appliedFilters.city);
+        const matchesHospital = req.hospital
+          .toLowerCase()
+          .includes(appliedFilters.city);
         if (!matchesCity && !matchesHospital) {
           return false;
         }
@@ -157,27 +161,27 @@ export function EmergencyRequestsDirectory({
 
   const getUrgencyBadge = (
     urgencyType: EmergencyRequestItem["urgency"],
-    label: string
+    label: string,
   ) => {
     switch (urgencyType) {
       case "immediate":
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FEE9EB] text-[#C72C36] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[11px] font-bold tracking-wider uppercase">
-            <AlertCircle className="h-3.5 w-3.5 shrink-0 text-[#C72C36]" />
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-red-50 text-red-700 px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs font-bold tracking-wider uppercase">
+            <AlertCircle className="h-3.5 w-3.5 shrink-0 text-red-700" />
             <span>{label}</span>
           </span>
         );
       case "within_12_hours":
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FFF0DC] text-[#A75E12] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[11px] font-bold tracking-wider uppercase">
-            <Clock className="h-3.5 w-3.5 shrink-0 text-[#A75E12]" />
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 text-amber-700 px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs font-bold tracking-wider uppercase">
+            <Clock className="h-3.5 w-3.5 shrink-0 text-amber-700" />
             <span>{label}</span>
           </span>
         );
       case "within_24_hours":
         return (
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#FEF3C7] text-[#B45309] px-2.5 py-0.5 sm:px-3 sm:py-1 text-[11px] font-bold tracking-wider uppercase">
-            <Clock className="h-3.5 w-3.5 shrink-0 text-[#B45309]" />
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-100/70 text-amber-800 px-2.5 py-0.5 sm:px-3 sm:py-1 text-xs font-bold tracking-wider uppercase">
+            <Clock className="h-3.5 w-3.5 shrink-0 text-amber-800" />
             <span>{label}</span>
           </span>
         );
@@ -204,7 +208,7 @@ export function EmergencyRequestsDirectory({
                   <select
                     value={bloodGroup}
                     onChange={(e) => setBloodGroup(e.target.value)}
-                    className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors appearance-none cursor-pointer"
+                    className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors appearance-none cursor-pointer"
                   >
                     <option value="all">All groups</option>
                     <option value="A+">A+</option>
@@ -230,7 +234,7 @@ export function EmergencyRequestsDirectory({
                   placeholder="e.g. Ahmedabad"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors"
+                  className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors"
                 />
               </div>
 
@@ -243,7 +247,7 @@ export function EmergencyRequestsDirectory({
                   <select
                     value={urgency}
                     onChange={(e) => setUrgency(e.target.value)}
-                    className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors appearance-none cursor-pointer"
+                    className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors appearance-none cursor-pointer"
                   >
                     <option value="all">All urgency levels</option>
                     <option value="immediate">Immediate</option>
@@ -258,7 +262,7 @@ export function EmergencyRequestsDirectory({
               <div className="md:col-span-2">
                 <button
                   type="submit"
-                  className="w-full h-11 inline-flex items-center justify-center gap-2 px-5 bg-[#C72C36] hover:bg-[#B2242D] text-white text-sm font-semibold rounded-xl shadow-xs active:scale-95 transition-all duration-150 cursor-pointer select-none"
+                  className="w-full h-11 inline-flex items-center justify-center gap-2 px-5 bg-red-700 hover:bg-red-800 text-white text-sm font-semibold rounded-xl shadow-xs active:scale-95 transition-all duration-150 cursor-pointer select-none"
                 >
                   <Search className="w-4 h-4 shrink-0" />
                   <span>Search</span>
@@ -289,8 +293,8 @@ export function EmergencyRequestsDirectory({
                   {sortBy === "urgent"
                     ? "Most urgent first"
                     : sortBy === "newest"
-                    ? "Newest first"
-                    : "Nearest first"}
+                      ? "Newest first"
+                      : "Nearest first"}
                 </span>
                 <ChevronDown className="w-4 h-4 text-gray-600" />
               </button>
@@ -305,7 +309,7 @@ export function EmergencyRequestsDirectory({
                     }}
                     className={`w-full text-left px-3.5 py-1.5 text-xs font-medium ${
                       sortBy === "urgent"
-                        ? "text-[#C72C36] bg-red-50/50 font-semibold"
+                        ? "text-red-700 bg-red-50/50 font-semibold"
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >
@@ -319,7 +323,7 @@ export function EmergencyRequestsDirectory({
                     }}
                     className={`w-full text-left px-3.5 py-1.5 text-xs font-medium ${
                       sortBy === "newest"
-                        ? "text-[#C72C36] bg-red-50/50 font-semibold"
+                        ? "text-red-700 bg-red-50/50 font-semibold"
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >
@@ -333,7 +337,7 @@ export function EmergencyRequestsDirectory({
                     }}
                     className={`w-full text-left px-3.5 py-1.5 text-xs font-medium ${
                       sortBy === "nearest"
-                        ? "text-[#C72C36] bg-red-50/50 font-semibold"
+                        ? "text-red-700 bg-red-50/50 font-semibold"
                         : "text-gray-700 hover:bg-gray-50"
                     }`}
                   >
@@ -348,7 +352,7 @@ export function EmergencyRequestsDirectory({
           <div className="space-y-4">
             {filteredRequests.length === 0 ? (
               <div className="text-center py-16 bg-white rounded-2xl sm:rounded-3xl border border-dashed border-gray-200">
-                <div className="w-12 h-12 rounded-full bg-red-50 text-[#C72C36] flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 rounded-full bg-red-50 text-red-700 flex items-center justify-center mx-auto mb-3">
                   <Droplets className="w-6 h-6" />
                 </div>
                 <h3 className="text-base font-semibold text-gray-900">
@@ -363,9 +367,13 @@ export function EmergencyRequestsDirectory({
                     setBloodGroup("all");
                     setCity("");
                     setUrgency("all");
-                    setAppliedFilters({ bloodGroup: "all", city: "", urgency: "all" });
+                    setAppliedFilters({
+                      bloodGroup: "all",
+                      city: "",
+                      urgency: "all",
+                    });
                   }}
-                  className="mt-4 px-4 py-2 text-xs font-semibold text-[#C72C36] bg-red-50 hover:bg-red-100 rounded-xl transition-colors cursor-pointer"
+                  className="mt-4 px-4 py-2 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 rounded-xl transition-colors cursor-pointer"
                 >
                   Clear all filters
                 </button>
@@ -387,7 +395,7 @@ export function EmergencyRequestsDirectory({
 
                     {/* Blood Group Badge */}
                     <div className="shrink-0">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FFF1F2] text-xl font-bold text-[#C72C36]">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 text-xl font-bold text-red-700">
                         {request.bloodGroup}
                       </div>
                     </div>
@@ -407,7 +415,7 @@ export function EmergencyRequestsDirectory({
                     <div className="shrink-0 flex items-center gap-2.5">
                       <Droplets className="h-4 w-4 text-gray-400 shrink-0" />
                       <div>
-                        <span className="text-[11px] text-gray-400 font-normal block leading-tight">
+                        <span className="text-xs text-gray-400 font-normal block leading-tight">
                           Units needed
                         </span>
                         <span className="text-xs sm:text-sm font-bold text-gray-900 block leading-tight mt-0.5">
@@ -420,7 +428,7 @@ export function EmergencyRequestsDirectory({
                     <div className="shrink-0 flex items-center gap-2.5">
                       <Clock className="h-4 w-4 text-gray-400 shrink-0" />
                       <div>
-                        <span className="text-[11px] text-gray-400 font-normal block leading-tight">
+                        <span className="text-xs text-gray-400 font-normal block leading-tight">
                           Required by
                         </span>
                         <span className="text-xs sm:text-sm font-bold text-gray-900 block leading-tight mt-0.5">
@@ -434,14 +442,14 @@ export function EmergencyRequestsDirectory({
                       <button
                         type="button"
                         onClick={() => onSelectRequest?.(request)}
-                        className="inline-flex items-center justify-center px-5 py-2.5 sm:py-3 rounded-xl bg-[#C72C36] text-xs sm:text-sm font-semibold text-white shadow-xs hover:bg-[#B2242D] active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+                        className="inline-flex items-center justify-center px-5 py-2.5 sm:py-3 rounded-xl bg-red-700 text-xs sm:text-sm font-semibold text-white shadow-xs hover:bg-red-800 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
                       >
                         View details
                       </button>
 
                       <Link
                         href={`https://wa.me/?text=${encodeURIComponent(
-                          `Urgent: ${request.unitsNeeded} units of ${request.bloodGroup} needed at ${request.hospital}, ${request.city}. Ref: ${request.code}`
+                          `Urgent: ${request.unitsNeeded} units of ${request.bloodGroup} needed at ${request.hospital}, ${request.city}. Ref: ${request.code}`,
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -463,8 +471,8 @@ export function EmergencyRequestsDirectory({
           <div className="bg-white rounded-2xl sm:rounded-3xl border border-gray-200/90 p-6 lg:p-7 shadow-xs sticky top-28">
             {/* Green Shield Check Icon */}
             <div className="mb-4">
-              <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-50 text-[#1C974D] border border-emerald-100/70">
-                <ShieldCheck className="w-6 h-6 text-[#1C974D]" />
+              <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100/70">
+                <ShieldCheck className="w-6 h-6 text-emerald-600" />
               </span>
             </div>
 
@@ -474,7 +482,7 @@ export function EmergencyRequestsDirectory({
             </h3>
 
             {/* 3 Guidance Points from Reference Image */}
-            <ul className="space-y-3 text-xs sm:text-[13px] text-gray-600 leading-relaxed mb-5">
+            <ul className="space-y-3 text-xs sm:text-sm text-gray-600 leading-relaxed mb-5">
               <li className="flex items-start">
                 <span>Confirm the request with the hospital.</span>
               </li>
@@ -489,7 +497,7 @@ export function EmergencyRequestsDirectory({
             {/* Safety Guidance Red Link */}
             <Link
               href="/about#safety"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#C72C36] hover:text-[#A8181D] hover:underline transition-colors group"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-red-700 hover:text-red-800 hover:underline transition-colors group"
             >
               <span>Read safety guidance</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />

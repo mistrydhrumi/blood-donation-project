@@ -159,31 +159,31 @@ export function CreateRequestStepFlow({
 
   return (
     <div className="w-full bg-white">
-      {/* 1. Hero Section matching Image 1 */}
-      <section className="w-full bg-[#FFF8F7] border-b border-[#F7EBEA] py-10 sm:py-12 md:py-14">
+      {/* 1. Hero Section */}
+      <section className="w-full bg-red-50/50 border-b border-red-100/70 py-10 sm:py-12 md:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back button */}
           <button
             type="button"
             onClick={onCancel}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-[#C72C36] mb-3 sm:mb-4 transition-colors cursor-pointer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-red-700 mb-3 sm:mb-4 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Cancel and back to emergency requests</span>
           </button>
 
           {/* Eyebrow Label */}
-          <span className="block text-xs font-bold tracking-[0.08em] uppercase text-[#C72C36] mb-2 sm:mb-2.5">
+          <span className="block text-xs font-bold tracking-wider uppercase text-red-700 mb-2 sm:mb-2.5">
             CREATE REQUEST
           </span>
 
           {/* Main Headline */}
-          <h1 className="text-3xl sm:text-4xl lg:text-[40px] font-semibold text-[#172033] tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-4xl font-semibold text-gray-900 tracking-tight leading-tight">
             Tell us what the patient needs
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-2 text-sm sm:text-base text-[#647085] font-normal leading-relaxed">
+          <p className="mt-2 text-sm sm:text-base text-gray-500 font-normal leading-relaxed">
             We&apos;ll guide you through the essentials. You can review everything before publishing.
           </p>
         </div>
@@ -194,7 +194,7 @@ export function CreateRequestStepFlow({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Main Card (Form) */}
           <div className="lg:col-span-8 xl:col-span-9 bg-white rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-2xs overflow-hidden">
-            {/* Top Stepper Header matching Images 2, 3, 5 */}
+            {/* Top Stepper Header */}
             <div className="px-6 sm:px-8 pt-6 pb-5 border-b border-gray-100 bg-gray-50/50">
               <div className="flex items-center gap-6 sm:gap-10 overflow-x-auto scrollbar-none">
                 {/* Step 1 Pill */}
@@ -202,9 +202,9 @@ export function CreateRequestStepFlow({
                   <span
                     className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
                       currentStep > 1
-                        ? "bg-[#C72C36] text-white"
+                        ? "bg-red-700 text-white"
                         : currentStep === 1
-                        ? "bg-[#C72C36] text-white"
+                        ? "bg-red-700 text-white"
                         : "bg-gray-200 text-gray-500"
                     }`}
                   >
@@ -228,9 +228,9 @@ export function CreateRequestStepFlow({
                   <span
                     className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
                       currentStep > 2
-                        ? "bg-[#C72C36] text-white"
+                        ? "bg-red-700 text-white"
                         : currentStep === 2
-                        ? "bg-[#C72C36] text-white"
+                        ? "bg-red-700 text-white"
                         : "bg-gray-200 text-gray-500"
                     }`}
                   >
@@ -254,7 +254,7 @@ export function CreateRequestStepFlow({
                   <span
                     className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center text-xs font-bold transition-colors ${
                       currentStep === 3
-                        ? "bg-[#C72C36] text-white"
+                        ? "bg-red-700 text-white"
                         : "bg-gray-200 text-gray-500"
                     }`}
                   >
@@ -273,19 +273,19 @@ export function CreateRequestStepFlow({
 
             {/* Error Message */}
             {errorMsg && (
-              <div className="mx-6 sm:mx-8 mt-5 p-3 rounded-xl bg-red-50 border border-red-200/80 text-xs sm:text-sm text-[#C72C36] font-medium">
+              <div className="mx-6 sm:mx-8 mt-5 p-3 rounded-xl bg-red-50 border border-red-200/80 text-xs sm:text-sm text-red-700 font-medium">
                 {errorMsg}
               </div>
             )}
 
             {/* Form Content */}
             <div className="p-6 sm:p-8">
-              {/* STEP 1: Patient & blood (Image 2) */}
+              {/* STEP 1: Patient & blood */}
               {currentStep === 1 && (
                 <div className="space-y-6">
                   {/* Step Header */}
                   <div className="flex items-start gap-3.5">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFF1F2] text-[#C72C36]">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-red-50 text-red-700">
                       <User className="w-5 h-5" />
                     </div>
                     <div>
@@ -312,7 +312,7 @@ export function CreateRequestStepFlow({
                         onChange={(e) =>
                           setFormData({ ...formData, patientName: e.target.value })
                         }
-                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors"
+                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors"
                       />
                     </div>
 
@@ -326,7 +326,7 @@ export function CreateRequestStepFlow({
                         onChange={(e) =>
                           setFormData({ ...formData, bloodGroup: e.target.value })
                         }
-                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors cursor-pointer"
+                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors cursor-pointer"
                       >
                         {BLOOD_GROUPS.map((bg) => (
                           <option key={bg} value={bg}>
@@ -352,7 +352,7 @@ export function CreateRequestStepFlow({
                             unitsRequired: parseInt(e.target.value) || 1,
                           })
                         }
-                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors"
+                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors"
                       />
                     </div>
 
@@ -366,7 +366,7 @@ export function CreateRequestStepFlow({
                         onChange={(e) =>
                           setFormData({ ...formData, relationship: e.target.value })
                         }
-                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors cursor-pointer"
+                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors cursor-pointer"
                       >
                         {RELATIONSHIPS.map((rel) => (
                           <option key={rel} value={rel}>
@@ -377,8 +377,8 @@ export function CreateRequestStepFlow({
                     </div>
                   </div>
 
-                  {/* Patient privacy notice box matching Image 2 */}
-                  <div className="bg-[#FFF9EC] border border-[#FDE68A]/70 rounded-xl p-4 flex items-start gap-3 mt-4">
+                  {/* Patient privacy notice box */}
+                  <div className="bg-amber-50 border border-amber-200/80 rounded-xl p-4 flex items-start gap-3 mt-4">
                     <Lock className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
                     <div>
                       <span className="block text-xs font-bold text-amber-950">
@@ -395,7 +395,7 @@ export function CreateRequestStepFlow({
                     <button
                       type="button"
                       onClick={handleNextStep}
-                      className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-[#C72C36] hover:bg-[#B2242D] text-white text-sm font-semibold shadow-xs active:scale-95 transition-all cursor-pointer"
+                      className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-red-700 hover:bg-red-800 text-white text-sm font-semibold shadow-xs active:scale-95 transition-all cursor-pointer"
                     >
                       <span>Continue</span>
                       <ArrowRight className="w-4 h-4" />
@@ -404,12 +404,12 @@ export function CreateRequestStepFlow({
                 </div>
               )}
 
-              {/* STEP 2: Hospital & timing (Images 3 & 4) */}
+              {/* STEP 2: Hospital & timing */}
               {currentStep === 2 && (
                 <div className="space-y-6">
                   {/* Step Header */}
                   <div className="flex items-start gap-3.5">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFF1F2] text-[#C72C36]">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-red-50 text-red-700">
                       <Building2 className="w-5 h-5" />
                     </div>
                     <div>
@@ -436,7 +436,7 @@ export function CreateRequestStepFlow({
                         onChange={(e) =>
                           setFormData({ ...formData, hospitalName: e.target.value })
                         }
-                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors"
+                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors"
                       />
                     </div>
 
@@ -452,7 +452,7 @@ export function CreateRequestStepFlow({
                         onChange={(e) =>
                           setFormData({ ...formData, city: e.target.value })
                         }
-                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors"
+                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors"
                       />
                     </div>
 
@@ -471,7 +471,7 @@ export function CreateRequestStepFlow({
                             hospitalAddress: e.target.value,
                           })
                         }
-                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors"
+                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors"
                       />
                     </div>
 
@@ -491,14 +491,14 @@ export function CreateRequestStepFlow({
                               requiredDateTime: e.target.value,
                             })
                           }
-                          className="w-full h-11 pl-3.5 pr-10 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors"
+                          className="w-full h-11 pl-3.5 pr-10 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors"
                         />
                         <Calendar className="absolute right-3.5 top-3.5 h-4 w-4 text-gray-400 pointer-events-none" />
                       </div>
                     </div>
                   </div>
 
-                  {/* Urgency Section matching Image 4 */}
+                  {/* Urgency Section */}
                   <div>
                     <label className="block text-xs font-semibold text-gray-700 mb-2.5">
                       Urgency
@@ -512,7 +512,7 @@ export function CreateRequestStepFlow({
                         }
                         className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                           formData.urgency === "immediate"
-                            ? "border-2 border-[#C72C36] bg-[#FFF5F5]"
+                            ? "border-2 border-red-700 bg-red-50/60"
                             : "border-gray-200 bg-white hover:border-gray-300"
                         }`}
                       >
@@ -532,7 +532,7 @@ export function CreateRequestStepFlow({
                         }
                         className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                           formData.urgency === "within_12_hours"
-                            ? "border-2 border-[#C72C36] bg-[#FFF5F5]"
+                            ? "border-2 border-red-700 bg-red-50/60"
                             : "border-gray-200 bg-white hover:border-gray-300"
                         }`}
                       >
@@ -552,7 +552,7 @@ export function CreateRequestStepFlow({
                         }
                         className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                           formData.urgency === "within_24_hours"
-                            ? "border-2 border-[#C72C36] bg-[#FFF5F5]"
+                            ? "border-2 border-red-700 bg-red-50/60"
                             : "border-gray-200 bg-white hover:border-gray-300"
                         }`}
                       >
@@ -572,7 +572,7 @@ export function CreateRequestStepFlow({
                         }
                         className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
                           formData.urgency === "scheduled"
-                            ? "border-2 border-[#C72C36] bg-[#FFF5F5]"
+                            ? "border-2 border-red-700 bg-red-50/60"
                             : "border-gray-200 bg-white hover:border-gray-300"
                         }`}
                       >
@@ -598,7 +598,7 @@ export function CreateRequestStepFlow({
                     <button
                       type="button"
                       onClick={handleNextStep}
-                      className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-[#C72C36] hover:bg-[#B2242D] text-white text-sm font-semibold shadow-xs active:scale-95 transition-all cursor-pointer"
+                      className="inline-flex items-center gap-2 h-11 px-6 rounded-xl bg-red-700 hover:bg-red-800 text-white text-sm font-semibold shadow-xs active:scale-95 transition-all cursor-pointer"
                     >
                       <span>Continue</span>
                       <ArrowRight className="w-4 h-4" />
@@ -607,12 +607,12 @@ export function CreateRequestStepFlow({
                 </div>
               )}
 
-              {/* STEP 3: Contact & review (Images 5 & 6) */}
+              {/* STEP 3: Contact & review */}
               {currentStep === 3 && (
                 <form onSubmit={handlePublish} className="space-y-6">
                   {/* Step Header */}
                   <div className="flex items-start gap-3.5">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#FFF1F2] text-[#C72C36]">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-red-50 text-red-700">
                       <MessageSquare className="w-5 h-5" />
                     </div>
                     <div>
@@ -639,7 +639,7 @@ export function CreateRequestStepFlow({
                         onChange={(e) =>
                           setFormData({ ...formData, contactNumber: e.target.value })
                         }
-                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors"
+                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors"
                       />
                     </div>
 
@@ -656,7 +656,7 @@ export function CreateRequestStepFlow({
                             preferredContact: e.target.value,
                           })
                         }
-                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors cursor-pointer"
+                        className="w-full h-11 px-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors cursor-pointer"
                       >
                         {PREFERRED_CONTACTS.map((pc) => (
                           <option key={pc} value={pc}>
@@ -682,7 +682,7 @@ export function CreateRequestStepFlow({
                           additionalInfo: e.target.value,
                         })
                       }
-                      className="w-full p-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] transition-colors"
+                      className="w-full p-3.5 text-sm text-gray-800 font-medium bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 transition-colors"
                     />
                   </div>
 
@@ -698,7 +698,7 @@ export function CreateRequestStepFlow({
                           consentConfirmed: e.target.checked,
                         })
                       }
-                      className="h-4 w-4 mt-0.5 rounded border-gray-300 text-[#C72C36] focus:ring-[#C72C36] cursor-pointer"
+                      className="h-4 w-4 mt-0.5 rounded border-gray-300 text-red-700 focus:ring-red-700 cursor-pointer"
                     />
                     <label
                       htmlFor="consent-checkbox"
@@ -708,7 +708,7 @@ export function CreateRequestStepFlow({
                     </label>
                   </div>
 
-                  {/* Bottom Action Bar matching user instruction: "button of last step will be like PUBLISH REQUEST" */}
+                  {/* Bottom Action Bar */}
                   <div className="border-t border-gray-100 pt-5 mt-6 flex items-center justify-end gap-3">
                     <button
                       type="button"
@@ -719,7 +719,7 @@ export function CreateRequestStepFlow({
                     </button>
                     <button
                       type="submit"
-                      className="inline-flex items-center gap-2 h-11 px-7 rounded-xl bg-[#C72C36] hover:bg-[#B2242D] text-white text-sm font-semibold shadow-xs active:scale-95 transition-all cursor-pointer"
+                      className="inline-flex items-center gap-2 h-11 px-7 rounded-xl bg-red-700 hover:bg-red-800 text-white text-sm font-semibold shadow-xs active:scale-95 transition-all cursor-pointer"
                     >
                       <span>Publish request</span>
                     </button>
@@ -729,12 +729,12 @@ export function CreateRequestStepFlow({
             </div>
           </div>
 
-          {/* Right Sidebar Card: Safe by design / Share-ready / Need help (Images 2, 3, 5) */}
+          {/* Right Sidebar Card */}
           <div className="lg:col-span-4 xl:col-span-3">
             <div className="bg-white rounded-2xl sm:rounded-3xl border border-gray-200/90 p-6 lg:p-7 shadow-xs sticky top-28 space-y-6">
               {/* Feature 1: Safe by design */}
               <div className="space-y-1.5">
-                <div className="text-[#C72C36] mb-2">
+                <div className="text-red-700 mb-2">
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <h4 className="text-sm font-bold text-gray-900">
@@ -747,7 +747,7 @@ export function CreateRequestStepFlow({
 
               {/* Feature 2: Share-ready */}
               <div className="space-y-1.5">
-                <div className="text-[#C72C36] mb-2">
+                <div className="text-red-700 mb-2">
                   <MessageCircle className="w-6 h-6" />
                 </div>
                 <h4 className="text-sm font-bold text-gray-900">
@@ -761,11 +761,11 @@ export function CreateRequestStepFlow({
               {/* Feature 3: Need help call support */}
               <div className="border-t border-gray-100 pt-5">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-red-50 text-[#C72C36] flex items-center justify-center shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-red-50 text-red-700 flex items-center justify-center shrink-0">
                     <PhoneCall className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="block text-[11px] text-gray-400 font-medium">
+                    <span className="block text-xs text-gray-400 font-medium">
                       Need help?
                     </span>
                     <span className="block text-xs sm:text-sm font-bold text-gray-900">

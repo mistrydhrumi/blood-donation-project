@@ -59,12 +59,12 @@ export function CreateBloodRequestModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
       <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden animate-in zoom-in-95 duration-200">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-[#FFF8F7]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-red-50/40">
           <div>
-            <span className="text-[11px] font-bold tracking-wider uppercase text-[#C72C36] block">
+            <span className="text-xs font-bold tracking-wider uppercase text-red-700 block">
               NEW REQUEST
             </span>
-            <h2 className="text-lg font-semibold text-[#172033] mt-0.5">
+            <h2 className="text-lg font-semibold text-gray-900 mt-0.5">
               Create Emergency Blood Request
             </h2>
           </div>
@@ -81,7 +81,7 @@ export function CreateBloodRequestModal({
         {/* Content */}
         {submitted ? (
           <div className="p-8 text-center">
-            <div className="w-12 h-12 rounded-full bg-red-50 text-[#C72C36] flex items-center justify-center mx-auto mb-4">
+            <div className="w-12 h-12 rounded-full bg-red-50 text-red-700 flex items-center justify-center mx-auto mb-4">
               <Droplets className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-gray-900">Request Published!</h3>
@@ -90,7 +90,7 @@ export function CreateBloodRequestModal({
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+          <form onSubmit={handleSubmit} className="p-6 space-y-4 max-h-128 overflow-y-auto">
             {/* Patient Name & Phone */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
@@ -107,7 +107,7 @@ export function CreateBloodRequestModal({
                     onChange={(e) =>
                       setFormData({ ...formData, patientName: e.target.value })
                     }
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36]"
+                    className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700"
                   />
                 </div>
               </div>
@@ -126,7 +126,7 @@ export function CreateBloodRequestModal({
                     onChange={(e) =>
                       setFormData({ ...formData, phone: e.target.value })
                     }
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36]"
+                    className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700"
                   />
                 </div>
               </div>
@@ -143,7 +143,7 @@ export function CreateBloodRequestModal({
                   onChange={(e) =>
                     setFormData({ ...formData, bloodGroup: e.target.value })
                   }
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] bg-white font-medium"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 bg-white font-medium"
                 >
                   {BLOOD_GROUPS.map((bg) => (
                     <option key={bg} value={bg}>
@@ -169,7 +169,7 @@ export function CreateBloodRequestModal({
                       unitsNeeded: parseInt(e.target.value) || 1,
                     })
                   }
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36]"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700"
                 />
               </div>
             </div>
@@ -190,7 +190,7 @@ export function CreateBloodRequestModal({
                     onChange={(e) =>
                       setFormData({ ...formData, hospital: e.target.value })
                     }
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36]"
+                    className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700"
                   />
                 </div>
               </div>
@@ -209,7 +209,7 @@ export function CreateBloodRequestModal({
                     onChange={(e) =>
                       setFormData({ ...formData, city: e.target.value })
                     }
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36]"
+                    className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700"
                   />
                 </div>
               </div>
@@ -229,7 +229,7 @@ export function CreateBloodRequestModal({
                       urgency: e.target.value as NewRequestData["urgency"],
                     })
                   }
-                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36] bg-white font-medium"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700 bg-white font-medium"
                 >
                   <option value="immediate">Immediate (Within 4 hours)</option>
                   <option value="within_12_hours">Within 12 Hours</option>
@@ -251,7 +251,7 @@ export function CreateBloodRequestModal({
                     onChange={(e) =>
                       setFormData({ ...formData, requiredBy: e.target.value })
                     }
-                    className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-[#C72C36] focus:ring-1 focus:ring-[#C72C36]"
+                    className="w-full pl-9 pr-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-red-700 focus:ring-1 focus:ring-red-700"
                   />
                 </div>
               </div>
@@ -259,7 +259,7 @@ export function CreateBloodRequestModal({
 
             {/* Notice */}
             <div className="flex items-start gap-2 p-3 bg-red-50/70 rounded-xl border border-red-100/70 text-xs text-red-900 leading-relaxed">
-              <AlertCircle className="w-4 h-4 text-[#C72C36] shrink-0 mt-0.5" />
+              <AlertCircle className="w-4 h-4 text-red-700 shrink-0 mt-0.5" />
               <span>
                 Please ensure patient verification details and contact availability. Blood requests are shared with active nearby donors.
               </span>
@@ -276,7 +276,7 @@ export function CreateBloodRequestModal({
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 text-sm font-semibold text-white bg-[#C72C36] hover:bg-[#B2242D] rounded-xl shadow-xs transition-all active:scale-95"
+                className="px-5 py-2 text-sm font-semibold text-white bg-red-700 hover:bg-red-800 rounded-xl shadow-xs transition-all active:scale-95"
               >
                 Publish Request
               </button>

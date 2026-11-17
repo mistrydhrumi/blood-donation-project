@@ -259,7 +259,7 @@ export default function BloodBankMap() {
         <p className="text-red-500 font-semibold text-sm">{locationError}</p>
       )}
       <div className="flex gap-4 mt-4 flex-col-reverse lg:flex-row ">
-        <div className="flex flex-col gap-4 w-full lg:w-1/3 h-68 md:h-[400px] border border-gray-300 rounded-lg p-4">
+        <div className="flex flex-col gap-4 w-full lg:w-1/3 h-68 md:h-96 border border-gray-300 rounded-lg p-4">
           <div className="flex justify-between items-center border-b border-gray-300  pb-4 px-2">
             <p className="font-semibold text-sm md:text-base">
               Nearest Blood Banks
@@ -291,7 +291,7 @@ export default function BloodBankMap() {
             )}
           </div>
         </div>
-        <div className="relative h-48 md:h-[400px] lg:flex-1 lg:w-lg overflow-hidden rounded-xl border [&_.mapboxgl-ctrl-logo]:hidden!">
+        <div className="relative h-48 md:h-96 lg:flex-1 lg:w-lg overflow-hidden rounded-xl border [&_.mapboxgl-ctrl-logo]:hidden!">
           {locationStatus === "loading" && (
             <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/70">
               <div className="flex items-center gap-3 rounded-lg bg-white px-5 py-4 shadow-lg">

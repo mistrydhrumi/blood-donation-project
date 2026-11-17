@@ -12,9 +12,9 @@ export default function EmergencyRequestsPage() {
   return (
     <Suspense
       fallback={
-        <div className="w-full bg-[#FFF8F7] min-h-[300px] flex items-center justify-center">
-          <div className="flex items-center gap-2.5 text-[#C72C36] text-sm font-medium">
-            <span className="h-5 w-5 border-2 border-[#C72C36] border-t-transparent rounded-full animate-spin" />
+        <div className="w-full bg-red-50/40 min-h-72 flex items-center justify-center">
+          <div className="flex items-center gap-2.5 text-red-700 text-sm font-medium">
+            <span className="h-5 w-5 border-2 border-red-700 border-t-transparent rounded-full animate-spin" />
             <span>Loading emergency requests...</span>
           </div>
         </div>
